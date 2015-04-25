@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/news"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     >
+
+    <ListView
+        android:id="@+id/listview"
+        android:fadingEdge="none"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+    
+	<LinearLayout 
+	    android:visibility="gone"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:orientation="vertical"
+	    android:gravity="center"
+	    android:id="@+id/ll_loading">
+	    <ProgressBar 
+	        android:id="@+id/bar"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        />
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="正在努力加载中!!!!"/>
+	</LinearLayout>
+		<LinearLayout 
+	    android:visibility="gone"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:orientation="vertical"
+	    android:gravity="center"
+	    android:id="@+id/ll_no_network">
+	   <ImageView 
+	        android:id="@+id/iv_no_network"
+		android:src="@drawable/no_work"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        />
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="正在努力加载中!!!!"/>
+	</LinearLayout>
+</RelativeLayout>
