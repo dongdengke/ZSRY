@@ -144,9 +144,7 @@ public class YanjiushengFragment extends Fragment {
 			newsElements = parse.getElementsByTag("li");
 			for (Element element : newsElements) {
 				String text = element.text();
-				// String[] split = text.split(" ");
 				news = new News();
-				// news.setDate(split[0]);
 				news.setTitle(text);
 				newsLists.add(news);
 			}

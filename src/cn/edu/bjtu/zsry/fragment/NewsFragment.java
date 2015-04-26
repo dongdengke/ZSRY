@@ -22,12 +22,10 @@ import android.widget.ListView;
 import cn.edu.bjtu.zsry.R;
 import cn.edu.bjtu.zsry.bean.News;
 import cn.edu.bjtu.zsry.global.GlobalParam;
-import cn.edu.bjtu.zsry.utils.NetWorkUtils;
 import cn.edu.bjtu.zsry.view.FocuesedView;
 
 public class NewsFragment extends Fragment {
 	protected static final int GET_NEWS_INFO = 1;
-	// protected static final int NO_NETWORK = 2;
 	private View view;
 	private ListView listview;
 	private List<News> newLists;
@@ -40,10 +38,6 @@ public class NewsFragment extends Fragment {
 				MyListviewAdapter adapter = new MyListviewAdapter();
 				listview.setAdapter(adapter);
 				break;
-			// case NO_NETWORK:
-			// ll_loading.setVisibility(View.GONE);
-			// ll_no_network.setVisibility(View.VISIBLE);
-			// break;
 
 			default:
 				break;
@@ -51,7 +45,6 @@ public class NewsFragment extends Fragment {
 		};
 	};
 	private LinearLayout ll_loading;
-	private LinearLayout ll_no_network;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -98,7 +91,6 @@ public class NewsFragment extends Fragment {
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		view = inflater.inflate(R.layout.news_fragment, null);
-		ll_no_network = (LinearLayout) view.findViewById(R.id.ll_no_network);
 		listview = (ListView) view.findViewById(R.id.listview);
 		ll_loading = (LinearLayout) view.findViewById(R.id.ll_loading);
 		System.out.println("onCreateView");
@@ -108,15 +100,10 @@ public class NewsFragment extends Fragment {
 
 			@Override
 			public void run() {
-				if (NetWorkUtils.checkNetState(getActivity())) {
-					newLists = paseHtml(GlobalParam.NEWSURL);
-					msg = Message.obtain();
-					msg.what = GET_NEWS_INFO;
-					handler.sendMessage(msg);
-
-				} else {
-					System.out.println("网络联接错误");
-				}
+				newLists = paseHtml(GlobalParam.NEWSURL);
+				msg = Message.obtain();
+				msg.what = GET_NEWS_INFO;
+				handler.sendMessage(msg);
 			}
 		}).start();
 		return view;

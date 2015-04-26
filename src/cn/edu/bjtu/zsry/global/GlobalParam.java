@@ -17,4 +17,14 @@ public class GlobalParam {
 	 * 研究生教学第一页新闻URL
 	 */
 	public static final String YNAJIUSHENG_NEWS_FIRST = "http://rjxy.bjtu.edu.cn/forLogin/morenews/moreNews423.jsp";
+	/**
+	 * 国际交流第一页URL
+	 * 
+	 */
+	public static final String INTERNATIOMAL_FIRST = "http://rjxy.bjtu.edu.cn/forLogin/morenews/moreNews461.jsp";
+	/**
+	 * 其他公告第一页
+	 */
+	public static final String OTHER_FIRST = "http://rjxy.bjtu.edu.cn/search.jsp";
+
 }

@@ -28,22 +28,4 @@
 	        android:layout_height="wrap_content"
 	        android:text="正在努力加载中!!!!"/>
 	</LinearLayout>
-		<LinearLayout 
-	    android:visibility="gone"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:orientation="vertical"
-	    android:gravity="center"
-	    android:id="@+id/ll_no_network">
-	   <ImageView 
-	        android:id="@+id/iv_no_network"
-		android:src="@drawable/no_work"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        />
-	    <TextView 
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="正在努力加载中!!!!"/>
-	</LinearLayout>
 </RelativeLayout>

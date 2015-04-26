@@ -68,14 +68,14 @@ public class BenkeshengFragment extends Fragment {
 		// TODO Auto-generated method stub
 		view = inflater.inflate(R.layout.benkesheng_fragment, null);
 
-		listview = (ListView) view.findViewById(R.id.benke_listview);
+		listview = (ListView) view.findViewById(R.id.listview);
 		ll_loading = (LinearLayout) view.findViewById(R.id.ll_loading);
 		System.out.println("onCreateView");
 		ll_loading.setVisibility(View.VISIBLE);
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				newLists = paseHtml(GlobalParam.BNEKE_NEWS_FIRST);
+				newLists = paseHtml(GlobalParam.OTHER_FIRST);
 				Message msg = Message.obtain();
 				msg.what = GET_NEWS_INFO;
 				handler.sendMessage(msg);
