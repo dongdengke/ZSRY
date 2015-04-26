@@ -59,7 +59,6 @@ public class BenkeshengFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		System.out.println("onCreate");
-
 	}
 
 	@Override
@@ -143,12 +142,20 @@ public class BenkeshengFragment extends Fragment {
 			parse = Jsoup.parse(newsUrl, 2000);
 			newsElements = parse.getElementsByTag("li");
 			for (Element element : newsElements) {
-				String text = element.text();
-				// String[] split = text.split(" ");
-				news = new News();
-				// news.setDate(split[0]);
-				news.setTitle(text);
-				newsLists.add(news);
+				Elements elementsByTag = element.getElementsByTag("a");
+				for (Element element2 : elementsByTag) {
+					Element select = element2.select("a").first();
+					String linkHrefw = select.attr("href");
+					if (linkHrefw.equals("#")) {
+						String text = element.text();
+						// String[] split = text.split(" ");
+						news = new News();
+						// news.setDate(split[0]);
+						news.setTitle(text);
+						// if (linkHrefw.equals("#")) {
+						newsLists.add(news);
+					}
+				}
 			}
 			return newsLists;
 		} catch (Exception e) {

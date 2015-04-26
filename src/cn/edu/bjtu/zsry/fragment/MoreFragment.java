@@ -64,10 +64,16 @@ public class MoreFragment extends Fragment {
 			parse = Jsoup.parse(newsUrl, 2000);
 			newsElements = parse.getElementsByTag("li");
 			for (Element element : newsElements) {
-				String text = element.text();
-				news = new News();
-				news.setTitle(text);
-				newsLists.add(news);
+				Elements elementsByTag = element.getElementsByTag("a");
+				for (Element element2 : elementsByTag) {
+					Element first = element2.select("a").first();
+					if (first.attr("href").equals("#")) {
+						String text = element.text();
+						news = new News();
+						news.setTitle(text);
+						newsLists.add(news);
+					}
+				}
 			}
 			return newsLists;
 		} catch (Exception e) {
