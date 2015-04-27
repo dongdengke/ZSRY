@@ -4,11 +4,17 @@
     android:layout_height="match_parent"
     android:id="@+id/more"
     android:orientation="vertical" >
+     <cn.edu.bjtu.zsry.pulltorefresh.RefreshableView
+        android:id="@+id/refreshable_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >
        <ListView
         android:id="@+id/listview"
         android:fadingEdge="none"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
+       </cn.edu.bjtu.zsry.pulltorefresh.RefreshableView>
      <TextView
          android:visibility="gone"
          android:layout_alignParentBottom="true"

@@ -26,6 +26,8 @@ import android.widget.Toast;
 import cn.edu.bjtu.zsry.R;
 import cn.edu.bjtu.zsry.bean.News;
 import cn.edu.bjtu.zsry.global.GlobalParam;
+import cn.edu.bjtu.zsry.pulltorefresh.RefreshableView;
+import cn.edu.bjtu.zsry.pulltorefresh.RefreshableView.PullToRefreshListener;
 import cn.edu.bjtu.zsry.utils.NetWorkUtils;
 
 public class NewsFragment extends Fragment {
@@ -50,6 +52,7 @@ public class NewsFragment extends Fragment {
 	};
 	private LinearLayout ll_loading;
 	private TextView tv_loading_more;
+	private RefreshableView refreshable_view;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -126,6 +129,8 @@ public class NewsFragment extends Fragment {
 				if (scrollState == OnScrollListener.SCROLL_STATE_IDLE) {
 					if (view.getLastVisiblePosition() == newLists.size() - 1) {
 						tv_loading_more.setVisibility(View.VISIBLE);
+					} else if (scrollState == OnScrollListener.SCROLL_STATE_FLING) {
+						tv_loading_more.setVisibility(View.GONE);
 					}
 				}
 			}
@@ -137,6 +142,20 @@ public class NewsFragment extends Fragment {
 
 			}
 		});
+		refreshable_view = (RefreshableView) view
+				.findViewById(R.id.new_refreshable_view);
+		refreshable_view.setOnRefreshListener(new PullToRefreshListener() {
+			@Override
+			public void onRefresh() {
+				try {
+					Thread.sleep(2000);
+					refreshable_view.finishRefreshing();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}, 0);
 		return view;
 	}
 

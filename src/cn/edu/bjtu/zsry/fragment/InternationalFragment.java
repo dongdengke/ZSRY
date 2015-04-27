@@ -15,6 +15,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
@@ -26,23 +27,31 @@ import android.widget.Toast;
 import cn.edu.bjtu.zsry.R;
 import cn.edu.bjtu.zsry.bean.News;
 import cn.edu.bjtu.zsry.global.GlobalParam;
+import cn.edu.bjtu.zsry.pulltorefresh.RefreshableView;
+import cn.edu.bjtu.zsry.pulltorefresh.RefreshableView.PullToRefreshListener;
 import cn.edu.bjtu.zsry.utils.NetWorkUtils;
 
 public class InternationalFragment extends Fragment {
 
 	protected static final int GET_NEWS_INFO = 1;
+	private static final int GET_NEWS_INFO_MORE = 2;
 	private View view;
 	private ListView listview;
 	private List<News> newLists;
 	private LinearLayout ll_loading;
 
 	private Handler handler = new Handler() {
+		private MyListviewAdapter adapter;
+
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case GET_NEWS_INFO:
 				ll_loading.setVisibility(View.GONE);
-				MyListviewAdapter adapter = new MyListviewAdapter();
+				adapter = new MyListviewAdapter();
 				listview.setAdapter(adapter);
+				break;
+			case GET_NEWS_INFO_MORE:
+				adapter.notifyDataSetChanged();
 				break;
 			default:
 				break;
@@ -50,6 +59,7 @@ public class InternationalFragment extends Fragment {
 		};
 	};
 	private TextView tv_loading_more;
+	private RefreshableView refreshable_view;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -133,6 +143,8 @@ public class InternationalFragment extends Fragment {
 					if (view.getLastVisiblePosition() == newLists.size() - 1) {
 						tv_loading_more.setVisibility(View.VISIBLE);
 					}
+				} else if (scrollState == OnScrollListener.SCROLL_STATE_FLING) {
+					tv_loading_more.setVisibility(View.GONE);
 				}
 			}
 
@@ -143,8 +155,58 @@ public class InternationalFragment extends Fragment {
 
 			}
 		});
+		tv_loading_more.setOnClickListener(new OnClickListener() {
 
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				ll_loading.setVisibility(View.VISIBLE);
+				tv_loading_more.setVisibility(View.GONE);
+				int itemCount = newLists.size();
+				loadingMore(itemCount);
+				ll_loading.setVisibility(View.GONE);
+				itemCount += 15;
+			}
+		});
+		refreshable_view = (RefreshableView) view
+				.findViewById(R.id.refreshable_view);
+		refreshable_view.setOnRefreshListener(new PullToRefreshListener() {
+			@Override
+			public void onRefresh() {
+				try {
+					Thread.sleep(2000);
+					int itemCount = newLists.size();
+					loadingMore(itemCount);
+					ll_loading.setVisibility(View.GONE);
+					itemCount += 15;
+					refreshable_view.finishRefreshing();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}, 0);
 		return view;
+	}
+
+	private void loadingMore(final int itemCount) {
+		if (NetWorkUtils.checkNetState(getActivity())) {
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					List<News> newListsMore = paseHtml(GlobalParam.INTERNATIOMAL_FIRST
+							+ "?u&start=" + itemCount);
+					newLists.addAll(newListsMore);
+					Message msg = Message.obtain();
+					msg.what = GET_NEWS_INFO_MORE;
+					handler.sendMessage(msg);
+				}
+			}).start();
+		} else {
+			Toast.makeText(getActivity(), "网络联接超时", 1).show();
+			ll_loading.setVisibility(View.GONE);
+		}
 	}
 
 	private class MyListviewAdapter extends BaseAdapter {

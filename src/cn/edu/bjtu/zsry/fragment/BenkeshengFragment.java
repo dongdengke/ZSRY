@@ -27,6 +27,8 @@ import android.widget.Toast;
 import cn.edu.bjtu.zsry.R;
 import cn.edu.bjtu.zsry.bean.News;
 import cn.edu.bjtu.zsry.global.GlobalParam;
+import cn.edu.bjtu.zsry.pulltorefresh.RefreshableView;
+import cn.edu.bjtu.zsry.pulltorefresh.RefreshableView.PullToRefreshListener;
 import cn.edu.bjtu.zsry.utils.NetWorkUtils;
 
 public class BenkeshengFragment extends Fragment {
@@ -58,13 +60,29 @@ public class BenkeshengFragment extends Fragment {
 	};
 	private LinearLayout ll_loading;
 	private TextView tv_loading_more;
+	private RefreshableView refreshable_view;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		System.out.println("onActivityCreated");
-
+		refreshable_view.setOnRefreshListener(new PullToRefreshListener() {
+			@Override
+			public void onRefresh() {
+				try {
+					Thread.sleep(2000);
+					int itemCount = newLists.size();
+					loadingMore(itemCount);
+					ll_loading.setVisibility(View.GONE);
+					itemCount += 15;
+					refreshable_view.finishRefreshing();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}, 0);
 	}
 
 	@Override
@@ -133,6 +151,8 @@ public class BenkeshengFragment extends Fragment {
 				itemCount += 15;
 			}
 		});
+		refreshable_view = (RefreshableView) view
+				.findViewById(R.id.refreshable_view);
 
 		return view;
 	}
@@ -149,7 +169,6 @@ public class BenkeshengFragment extends Fragment {
 					Message msg = Message.obtain();
 					msg.what = GET_NEWS_INFO_MORE;
 					handler.sendMessage(msg);
-
 				}
 			}).start();
 		} else {
