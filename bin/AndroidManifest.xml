@@ -26,6 +26,8 @@
             </intent-filter>
         </activity>
         <activity android:name="cn.edu.bjtu.zsry.MainActivity"></activity>
+        <activity android:name="cn.edu.bjtu.zsry.NewsDetailInfoActivity"></activity>
+        <activity android:name="cn.edu.bjtu.zsry.DetailInfo"></activity>
     </application>
 
 </manifest>

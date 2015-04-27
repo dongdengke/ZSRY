@@ -1,9 +1,26 @@
 package cn.edu.bjtu.zsry.bean;
 
-
 public class News {
 	private String title;
 	private String date;
+	private String id;
+	private String flag;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
 
 	public String getTitle() {
 		return title;

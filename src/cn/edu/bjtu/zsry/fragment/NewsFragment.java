@@ -9,6 +9,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,11 +20,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.edu.bjtu.zsry.NewsDetailInfoActivity;
 import cn.edu.bjtu.zsry.R;
 import cn.edu.bjtu.zsry.bean.News;
 import cn.edu.bjtu.zsry.global.GlobalParam;
@@ -32,16 +37,19 @@ import cn.edu.bjtu.zsry.utils.NetWorkUtils;
 
 public class NewsFragment extends Fragment {
 	protected static final int GET_NEWS_INFO = 1;
+	// private static final int DETAIL_INFO = 2;
 	private View view;
 	private ListView listview;
 	private List<News> newLists;
-
+	private String baseUrlStr = "http://rjxy.bjtu.edu.cn/forLogin/news_apply_show.jsp?id=";
 	private Handler handler = new Handler() {
+		private MyListviewAdapter adapter;
+
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case GET_NEWS_INFO:
 				ll_loading.setVisibility(View.GONE);
-				MyListviewAdapter adapter = new MyListviewAdapter();
+				adapter = new MyListviewAdapter();
 				listview.setAdapter(adapter);
 				break;
 
@@ -72,11 +80,18 @@ public class NewsFragment extends Fragment {
 			parse = Jsoup.parse(newsUrl, 2000);
 			newsElements = parse.getElementsByTag("li");
 			for (Element element : newsElements) {
+				Elements elementsByTag = element.getElementsByTag("a");
 				String text = element.text();
 				String[] split = text.split(" ");
 				news = new News();
 				news.setDate(split[0]);
 				news.setTitle(split[1]);
+				for (Element element2 : elementsByTag) {
+					Element select = element2.select("a").first();
+					String attr = select.attr("onClick");
+					attr = attr.substring(12, 17);
+					news.setId(attr);
+				}
 				newsLists.add(news);
 			}
 			return newsLists;
@@ -88,10 +103,8 @@ public class NewsFragment extends Fragment {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		System.out.println("onCreate");
-
 	}
 
 	@Override
@@ -156,7 +169,54 @@ public class NewsFragment extends Fragment {
 				}
 			}
 		}, 0);
+		listview.setOnItemClickListener(new OnItemClickListener() {
+
+			@SuppressLint("SetJavaScriptEnabled")
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				News news = (News) listview.getItemAtPosition(position);
+				final String newsId = news.getId();
+				final String flag = news.getFlag();
+				if (NetWorkUtils.checkNetState(getActivity())) {
+					Intent intent = new Intent(getActivity(),
+							NewsDetailInfoActivity.class);
+					intent.putExtra("newsId", newsId);
+					intent.putExtra("baseUrl", baseUrlStr);
+					startActivity(intent);
+				} else {
+					Toast.makeText(getActivity(), "网络链接超时", 1).show();
+				}
+			}
+		});
 		return view;
+	}
+
+	/**
+	 * 根据url解析新闻详情
+	 * 
+	 * @param urlStr
+	 */
+	private ArrayList<String> parseNewsDetail(String urlStr) {
+		try {
+			ArrayList<String> newsArray = new ArrayList<String>();
+			URL url = new URL(urlStr);
+			Document doc = Jsoup.parse(url, 3000);
+			Elements elements = doc.getElementsByTag("div");
+			for (Element element : elements) {
+				String text = element.text();
+				newsArray.add(text);
+				Elements elementsByTag = element.getElementsByTag("img");
+				for (Element element2 : elementsByTag) {
+					String attr = element2.attr("src");
+					newsArray.add("rjxy.bjtu.edu.cn" + attr);
+				}
+			}
+			return newsArray;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	private class MyListviewAdapter extends BaseAdapter {

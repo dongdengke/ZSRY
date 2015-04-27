@@ -9,6 +9,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,11 +21,14 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.edu.bjtu.zsry.NewsDetailInfoActivity;
 import cn.edu.bjtu.zsry.R;
 import cn.edu.bjtu.zsry.bean.News;
 import cn.edu.bjtu.zsry.global.GlobalParam;
@@ -39,6 +44,7 @@ public class BenkeshengFragment extends Fragment {
 	private List<News> newLists;
 	private int itemCount = 0;
 	private MyListviewAdapter adapter;
+	private String baseUrl = "http://rjxy.bjtu.edu.cn/forLogin/notice_apply_show.jsp?id=";
 
 	private Handler handler = new Handler() {
 
@@ -153,7 +159,29 @@ public class BenkeshengFragment extends Fragment {
 		});
 		refreshable_view = (RefreshableView) view
 				.findViewById(R.id.refreshable_view);
+		listview.setOnItemClickListener(new OnItemClickListener() {
 
+			@SuppressLint("SetJavaScriptEnabled")
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				News news = (News) listview.getItemAtPosition(position);
+				final String newsId = news.getId();
+				final String flag = news.getFlag();
+				Toast.makeText(getActivity(), newsId + "--------" + flag, 1)
+						.show();
+				if (NetWorkUtils.checkNetState(getActivity())) {
+					Intent intent = new Intent(getActivity(),
+							NewsDetailInfoActivity.class);
+					intent.putExtra("newsId", newsId);
+					intent.putExtra("flag", flag);
+					intent.putExtra("baseUrl", baseUrl);
+					startActivity(intent);
+				} else {
+					Toast.makeText(getActivity(), "网络链接超时", 1).show();
+				}
+			}
+		});
 		return view;
 	}
 
@@ -175,6 +203,7 @@ public class BenkeshengFragment extends Fragment {
 			Toast.makeText(getActivity(), "网络联接超时", 1).show();
 			ll_loading.setVisibility(View.GONE);
 		}
+
 	}
 
 	private class MyListviewAdapter extends BaseAdapter {
@@ -246,6 +275,13 @@ public class BenkeshengFragment extends Fragment {
 						news.setDate(split[0] + "]");
 						String title = split[1].toString().trim();
 						news.setTitle(title);
+						String attr = select.attr("onClick");
+						attr = attr.substring(9, attr.length() - 2);
+						String[] idAnfFlag = attr.split(",");
+						news.setId(idAnfFlag[0].substring(1,
+								idAnfFlag[0].length() - 1));
+						news.setFlag(idAnfFlag[1].substring(1,
+								idAnfFlag[1].length() - 1));
 						newsLists.add(news);
 					}
 				}
@@ -256,5 +292,4 @@ public class BenkeshengFragment extends Fragment {
 		}
 		return null;
 	}
-
 }
