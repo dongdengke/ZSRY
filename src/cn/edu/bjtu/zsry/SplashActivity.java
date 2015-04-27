@@ -8,6 +8,8 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+import cn.edu.bjtu.zsry.utils.NetWorkUtils;
 
 public class SplashActivity extends Activity {
 
@@ -40,10 +42,21 @@ public class SplashActivity extends Activity {
 			@Override
 			public void onAnimationEnd(Animation animation) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(SplashActivity.this,
-						MainActivity.class);
-				startActivity(intent);
-				SplashActivity.this.finish();
+				boolean isNetConnected = NetWorkUtils
+						.checkNetState(SplashActivity.this);
+				if (isNetConnected) {
+					Intent intent = new Intent(SplashActivity.this,
+							MainActivity.class);
+					startActivity(intent);
+					SplashActivity.this.finish();
+				} else {
+					Toast.makeText(SplashActivity.this, "暂时没有网络链接", 0).show();
+					Intent intent = new Intent(SplashActivity.this,
+							MainActivity.class);
+					startActivity(intent);
+					SplashActivity.this.finish();
+
+				}
 			}
 		});
 	}

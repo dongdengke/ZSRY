@@ -19,9 +19,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 import cn.edu.bjtu.zsry.R;
 import cn.edu.bjtu.zsry.bean.News;
 import cn.edu.bjtu.zsry.global.GlobalParam;
+import cn.edu.bjtu.zsry.utils.NetWorkUtils;
 import cn.edu.bjtu.zsry.view.FocuesedView;
 
 public class MoreFragment extends Fragment {
@@ -35,7 +37,7 @@ public class MoreFragment extends Fragment {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case GET_NEWS_INFO:
-				ll_loading.setVisibility(View.GONE);
+				ll_more_loading.setVisibility(View.GONE);
 				MyListviewAdapter adapter = new MyListviewAdapter();
 				listview.setAdapter(adapter);
 				break;
@@ -44,14 +46,13 @@ public class MoreFragment extends Fragment {
 			}
 		};
 	};
-	private LinearLayout ll_loading;
+	private LinearLayout ll_more_loading;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		System.out.println("onActivityCreated");
-
 	}
 
 	private List<News> paseHtml(String url) {
@@ -96,20 +97,27 @@ public class MoreFragment extends Fragment {
 		// TODO Auto-generated method stub
 		view = inflater.inflate(R.layout.more_fragment, null);
 		listview = (ListView) view.findViewById(R.id.listview);
-		ll_loading = (LinearLayout) view.findViewById(R.id.ll_loading);
+		ll_more_loading = (LinearLayout) view
+				.findViewById(R.id.ll_more_loading);
 		System.out.println("onCreateView");
-		ll_loading.setVisibility(View.VISIBLE);
-		new Thread(new Runnable() {
-			private Message msg;
+		ll_more_loading.setVisibility(View.VISIBLE);
+		if (NetWorkUtils.checkNetState(getActivity())) {
 
-			@Override
-			public void run() {
-				newLists = paseHtml(GlobalParam.OTHER_FIRST);
-				msg = Message.obtain();
-				msg.what = GET_NEWS_INFO;
-				handler.sendMessage(msg);
-			}
-		}).start();
+			new Thread(new Runnable() {
+				private Message msg;
+
+				@Override
+				public void run() {
+					newLists = paseHtml(GlobalParam.OTHER_FIRST);
+					msg = Message.obtain();
+					msg.what = GET_NEWS_INFO;
+					handler.sendMessage(msg);
+				}
+			}).start();
+		} else {
+			Toast.makeText(getActivity(), "网络联接超时", 1).show();
+			ll_more_loading.setVisibility(View.GONE);
+		}
 		return view;
 	}
 

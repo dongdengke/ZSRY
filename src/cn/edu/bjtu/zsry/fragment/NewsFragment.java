@@ -19,9 +19,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 import cn.edu.bjtu.zsry.R;
 import cn.edu.bjtu.zsry.bean.News;
 import cn.edu.bjtu.zsry.global.GlobalParam;
+import cn.edu.bjtu.zsry.utils.NetWorkUtils;
 import cn.edu.bjtu.zsry.view.FocuesedView;
 
 public class NewsFragment extends Fragment {
@@ -95,17 +97,23 @@ public class NewsFragment extends Fragment {
 		ll_loading = (LinearLayout) view.findViewById(R.id.ll_loading);
 		System.out.println("onCreateView");
 		ll_loading.setVisibility(View.VISIBLE);
-		new Thread(new Runnable() {
-			private Message msg;
+		if (NetWorkUtils.checkNetState(getActivity())) {
 
-			@Override
-			public void run() {
-				newLists = paseHtml(GlobalParam.NEWSURL);
-				msg = Message.obtain();
-				msg.what = GET_NEWS_INFO;
-				handler.sendMessage(msg);
-			}
-		}).start();
+			new Thread(new Runnable() {
+				private Message msg;
+
+				@Override
+				public void run() {
+					newLists = paseHtml(GlobalParam.NEWSURL);
+					msg = Message.obtain();
+					msg.what = GET_NEWS_INFO;
+					handler.sendMessage(msg);
+				}
+			}).start();
+		} else {
+			Toast.makeText(getActivity(), "网络联接超时", 1).show();
+			ll_loading.setVisibility(View.GONE);
+		}
 		return view;
 	}
 

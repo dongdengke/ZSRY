@@ -19,9 +19,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 import cn.edu.bjtu.zsry.R;
 import cn.edu.bjtu.zsry.bean.News;
 import cn.edu.bjtu.zsry.global.GlobalParam;
+import cn.edu.bjtu.zsry.utils.NetWorkUtils;
 import cn.edu.bjtu.zsry.view.FocuesedView;
 
 public class BenkeshengFragment extends Fragment {
@@ -66,20 +68,24 @@ public class BenkeshengFragment extends Fragment {
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		view = inflater.inflate(R.layout.benkesheng_fragment, null);
-
 		listview = (ListView) view.findViewById(R.id.listview);
 		ll_loading = (LinearLayout) view.findViewById(R.id.ll_loading);
 		System.out.println("onCreateView");
 		ll_loading.setVisibility(View.VISIBLE);
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				newLists = paseHtml(GlobalParam.OTHER_FIRST);
-				Message msg = Message.obtain();
-				msg.what = GET_NEWS_INFO;
-				handler.sendMessage(msg);
-			}
-		}).start();
+		if (NetWorkUtils.checkNetState(getActivity())) {
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					newLists = paseHtml(GlobalParam.OTHER_FIRST);
+					Message msg = Message.obtain();
+					msg.what = GET_NEWS_INFO;
+					handler.sendMessage(msg);
+				}
+			}).start();
+		} else {
+			Toast.makeText(getActivity(), "网络联接超时", 1).show();
+			ll_loading.setVisibility(View.GONE);
+		}
 		return view;
 	}
 
@@ -124,7 +130,6 @@ public class BenkeshengFragment extends Fragment {
 			holder.tv_title.setText(news.getTitle());
 			return view;
 		}
-
 	}
 
 	class ViewHolder {
