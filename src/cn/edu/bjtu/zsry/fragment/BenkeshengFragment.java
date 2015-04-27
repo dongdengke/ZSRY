@@ -15,30 +15,40 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import cn.edu.bjtu.zsry.R;
 import cn.edu.bjtu.zsry.bean.News;
 import cn.edu.bjtu.zsry.global.GlobalParam;
 import cn.edu.bjtu.zsry.utils.NetWorkUtils;
-import cn.edu.bjtu.zsry.view.FocuesedView;
 
 public class BenkeshengFragment extends Fragment {
-	protected static final int GET_NEWS_INFO = 1;
+	private static final int GET_NEWS_INFO = 1;
+	private static final int GET_NEWS_INFO_MORE = 2;
 	private View view;
 	private ListView listview;
 	private List<News> newLists;
+	private int itemCount = 0;
+	private MyListviewAdapter adapter;
 
 	private Handler handler = new Handler() {
+
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case GET_NEWS_INFO:
 				ll_loading.setVisibility(View.GONE);
-				MyListviewAdapter adapter = new MyListviewAdapter();
+				adapter = new MyListviewAdapter();
 				listview.setAdapter(adapter);
+				break;
+			case GET_NEWS_INFO_MORE:
+				adapter.notifyDataSetChanged();
 				break;
 
 			default:
@@ -47,6 +57,7 @@ public class BenkeshengFragment extends Fragment {
 		};
 	};
 	private LinearLayout ll_loading;
+	private TextView tv_loading_more;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -70,13 +81,15 @@ public class BenkeshengFragment extends Fragment {
 		view = inflater.inflate(R.layout.benkesheng_fragment, null);
 		listview = (ListView) view.findViewById(R.id.listview);
 		ll_loading = (LinearLayout) view.findViewById(R.id.ll_loading);
+		tv_loading_more = (TextView) view.findViewById(R.id.tv_loading_more);
 		System.out.println("onCreateView");
 		ll_loading.setVisibility(View.VISIBLE);
 		if (NetWorkUtils.checkNetState(getActivity())) {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					newLists = paseHtml(GlobalParam.OTHER_FIRST);
+					newLists = paseHtml(GlobalParam.BNEKE_NEWS_FIRST);
+					itemCount = newLists.size();
 					Message msg = Message.obtain();
 					msg.what = GET_NEWS_INFO;
 					handler.sendMessage(msg);
@@ -86,7 +99,63 @@ public class BenkeshengFragment extends Fragment {
 			Toast.makeText(getActivity(), "网络联接超时", 1).show();
 			ll_loading.setVisibility(View.GONE);
 		}
+		listview.setOnScrollListener(new OnScrollListener() {
+
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				// TODO Auto-generated method stub
+				if (scrollState == OnScrollListener.SCROLL_STATE_IDLE) {
+					if (view.getLastVisiblePosition() == newLists.size() - 1) {
+						tv_loading_more.setVisibility(View.VISIBLE);
+					}
+				} else if (scrollState == OnScrollListener.SCROLL_STATE_FLING) {
+					tv_loading_more.setVisibility(View.GONE);
+				}
+			}
+
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		tv_loading_more.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				ll_loading.setVisibility(View.VISIBLE);
+				tv_loading_more.setVisibility(View.GONE);
+				int itemCount = newLists.size();
+				loadingMore(itemCount);
+				ll_loading.setVisibility(View.GONE);
+				itemCount += 15;
+			}
+		});
+
 		return view;
+	}
+
+	private void loadingMore(final int itemCount) {
+		if (NetWorkUtils.checkNetState(getActivity())) {
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					List<News> newListsMore = paseHtml(GlobalParam.BNEKE_NEWS_FIRST
+							+ "?u&start=" + itemCount);
+					newLists.addAll(newListsMore);
+					Message msg = Message.obtain();
+					msg.what = GET_NEWS_INFO_MORE;
+					handler.sendMessage(msg);
+
+				}
+			}).start();
+		} else {
+			Toast.makeText(getActivity(), "网络联接超时", 1).show();
+			ll_loading.setVisibility(View.GONE);
+		}
 	}
 
 	private class MyListviewAdapter extends BaseAdapter {
@@ -123,8 +192,8 @@ public class BenkeshengFragment extends Fragment {
 				holder = new ViewHolder();
 				view.setTag(holder);
 			}
-			holder.tv_date = (FocuesedView) view.findViewById(R.id.tv_date);
-			holder.tv_title = (FocuesedView) view.findViewById(R.id.tv_title);
+			holder.tv_date = (TextView) view.findViewById(R.id.tv_date);
+			holder.tv_title = (TextView) view.findViewById(R.id.tv_title);
 			News news = newLists.get(position);
 			holder.tv_date.setText(news.getDate());
 			holder.tv_title.setText(news.getTitle());
@@ -133,8 +202,8 @@ public class BenkeshengFragment extends Fragment {
 	}
 
 	class ViewHolder {
-		FocuesedView tv_date;
-		FocuesedView tv_title;
+		TextView tv_date;
+		TextView tv_title;
 	}
 
 	public static List<News> paseHtml(String url) {
@@ -153,11 +222,11 @@ public class BenkeshengFragment extends Fragment {
 					String linkHrefw = select.attr("href");
 					if (linkHrefw.equals("#")) {
 						String text = element.text();
-						// String[] split = text.split(" ");
+						String[] split = text.split("]");
 						news = new News();
-						// news.setDate(split[0]);
-						news.setTitle(text);
-						// if (linkHrefw.equals("#")) {
+						news.setDate(split[0] + "]");
+						String title = split[1].toString().trim();
+						news.setTitle(title);
 						newsLists.add(news);
 					}
 				}

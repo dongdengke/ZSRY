@@ -10,7 +10,16 @@
         android:fadingEdge="none"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
-    
+     <TextView
+         android:visibility="gone"
+         android:layout_alignParentBottom="true"
+            android:id="@+id/tv_loading_more"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@android:color/background_light"
+            android:text="点击加载更多" />
 	<LinearLayout 
 	    android:visibility="gone"
 	    android:layout_width="fill_parent"

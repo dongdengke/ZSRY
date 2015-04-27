@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="40dp" >
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
+    android:orientation="horizontal" >
 
-    <cn.edu.bjtu.zsry.view.FocuesedView
+    <TextView
         android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_width="0dp"
+        android:layout_weight="5"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         android:gravity="center_vertical"
-        android:singleLine="true"
-        android:ellipsize="marquee"
-        android:focusable="true"
-        android:clickable="true"
+        android:lineSpacingExtra="3dp"
         android:text="标题"
         android:textSize="16sp" />
 
-    <cn.edu.bjtu.zsry.view.FocuesedView
+    <TextView
         android:id="@+id/tv_date"
-        android:layout_width="100dp"
-        android:layout_alignParentRight="true"
-        android:layout_height="40dp"
-        android:gravity="center_vertical"
-        android:text="时间"
-         />
+        android:layout_width="0dp"
+        android:layout_weight="2"
+		android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:text="时间" />
 
-</RelativeLayout>
+</LinearLayout>

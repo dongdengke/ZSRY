@@ -16,15 +16,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import cn.edu.bjtu.zsry.R;
 import cn.edu.bjtu.zsry.bean.News;
 import cn.edu.bjtu.zsry.global.GlobalParam;
 import cn.edu.bjtu.zsry.utils.NetWorkUtils;
-import cn.edu.bjtu.zsry.view.FocuesedView;
 
 public class InternationalFragment extends Fragment {
 
@@ -47,6 +49,7 @@ public class InternationalFragment extends Fragment {
 			}
 		};
 	};
+	private TextView tv_loading_more;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -72,8 +75,10 @@ public class InternationalFragment extends Fragment {
 					String linkHref = first.attr("href");
 					if (linkHref.equals("#")) {
 						String text = element.text();
+						String[] split = text.split(" ");
 						news = new News();
-						news.setTitle(text);
+						news.setDate(split[0]);
+						news.setTitle(split[1]);
 						newsLists.add(news);
 					}
 				}
@@ -100,6 +105,7 @@ public class InternationalFragment extends Fragment {
 		view = inflater.inflate(R.layout.international_fragment, null);
 		listview = (ListView) view.findViewById(R.id.listview);
 		ll_loading = (LinearLayout) view.findViewById(R.id.ll_loading);
+		tv_loading_more = (TextView) view.findViewById(R.id.tv_loading_more);
 		System.out.println("onCreateView");
 		ll_loading.setVisibility(View.VISIBLE);
 		if (NetWorkUtils.checkNetState(getActivity())) {
@@ -118,6 +124,26 @@ public class InternationalFragment extends Fragment {
 			Toast.makeText(getActivity(), "网络联接超时", 1).show();
 			ll_loading.setVisibility(View.GONE);
 		}
+		listview.setOnScrollListener(new OnScrollListener() {
+
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				// TODO Auto-generated method stub
+				if (scrollState == OnScrollListener.SCROLL_STATE_IDLE) {
+					if (view.getLastVisiblePosition() == newLists.size() - 1) {
+						tv_loading_more.setVisibility(View.VISIBLE);
+					}
+				}
+			}
+
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
 		return view;
 	}
 
@@ -155,8 +181,8 @@ public class InternationalFragment extends Fragment {
 				holder = new ViewHolder();
 				view.setTag(holder);
 			}
-			holder.tv_date = (FocuesedView) view.findViewById(R.id.tv_date);
-			holder.tv_title = (FocuesedView) view.findViewById(R.id.tv_title);
+			holder.tv_date = (TextView) view.findViewById(R.id.tv_date);
+			holder.tv_title = (TextView) view.findViewById(R.id.tv_title);
 			News news = newLists.get(position);
 			holder.tv_date.setText(news.getDate());
 			holder.tv_title.setText(news.getTitle());
@@ -166,8 +192,8 @@ public class InternationalFragment extends Fragment {
 	}
 
 	class ViewHolder {
-		FocuesedView tv_date;
-		FocuesedView tv_title;
+		TextView tv_date;
+		TextView tv_title;
 	}
 
 }
