@@ -30,5 +30,8 @@ public class GlobalParam {
 	 * 学院简介url
 	 */
 	public static final String INTRODUCE_URL = "http://rjxy.bjtu.edu.cn/chinese/xyjj.jsp";
-
+	/**
+	 * 校园招聘第一页人url
+	 */
+	public static final String EMPLOYEE_URL = "http://rjxy.bjtu.edu.cn/forLogin/morenews/moreNews462.jsp";
 }

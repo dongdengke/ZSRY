@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
+import cn.edu.bjtu.zsry.MainActivity;
 import cn.edu.bjtu.zsry.R;
 import cn.edu.bjtu.zsry.global.GlobalParam;
 
@@ -39,6 +40,7 @@ public class HomeFragment extends Fragment implements OnClickListener {
 	private TextView tv_other;
 	private SlidingMenu menu;
 	private MyAdapter adapter;
+	private MainActivity activity;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -62,7 +64,7 @@ public class HomeFragment extends Fragment implements OnClickListener {
 		tv_yanjiusheng = (TextView) view.findViewById(R.id.tv_yanjiusheng);
 		tv_international = (TextView) view.findViewById(R.id.tv_international);
 		tv_other = (TextView) view.findViewById(R.id.tv_other);
-
+		activity = new MainActivity();
 		initPagers();
 		adapter = new MyAdapter(getActivity().getSupportFragmentManager());
 		viewpager.setAdapter(adapter);
@@ -85,6 +87,7 @@ public class HomeFragment extends Fragment implements OnClickListener {
 				tv_yanjiusheng.setTextColor(Color.BLACK);
 				tv_international.setTextColor(Color.BLACK);
 				tv_other.setTextColor(Color.BLACK);
+				activity.menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 				switch (position) {
 				case 0:
 					tv_news.setTextColor(Color.RED);
@@ -123,6 +126,7 @@ public class HomeFragment extends Fragment implements OnClickListener {
 
 			}
 		});
+
 		return view;
 	}
 

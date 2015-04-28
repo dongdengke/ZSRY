@@ -10,7 +10,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -28,7 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import cn.edu.bjtu.zsry.NewsDetailInfoActivity;
+import cn.edu.bjtu.zsry.MainActivity;
 import cn.edu.bjtu.zsry.R;
 import cn.edu.bjtu.zsry.bean.News;
 import cn.edu.bjtu.zsry.global.GlobalParam;
@@ -36,7 +35,8 @@ import cn.edu.bjtu.zsry.pulltorefresh.RefreshableView;
 import cn.edu.bjtu.zsry.pulltorefresh.RefreshableView.PullToRefreshListener;
 import cn.edu.bjtu.zsry.utils.NetWorkUtils;
 
-public class BenkeshengFragment extends Fragment {
+public class EmployeeInfoFragment extends Fragment {
+
 	private static final int GET_NEWS_INFO = 1;
 	private static final int GET_NEWS_INFO_MORE = 2;
 	private View view;
@@ -72,7 +72,22 @@ public class BenkeshengFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-		System.out.println("onActivityCreated");
+		refreshable_view.setOnRefreshListener(new PullToRefreshListener() {
+			@Override
+			public void onRefresh() {
+				try {
+					Thread.sleep(2000);
+					int itemCount = newLists.size();
+					loadingMore(itemCount);
+					ll_loading.setVisibility(View.GONE);
+					itemCount += 15;
+					refreshable_view.finishRefreshing();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}, 0);
 	}
 
 	@Override
@@ -86,7 +101,7 @@ public class BenkeshengFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		view = inflater.inflate(R.layout.benkesheng_fragment, null);
+		view = inflater.inflate(R.layout.employee_info, null);
 		listview = (ListView) view.findViewById(R.id.listview);
 		ll_loading = (LinearLayout) view.findViewById(R.id.ll_loading);
 		tv_loading_more = (TextView) view.findViewById(R.id.tv_loading_more);
@@ -95,7 +110,7 @@ public class BenkeshengFragment extends Fragment {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					newLists = paseHtml(GlobalParam.BNEKE_NEWS_FIRST);
+					newLists = paseHtml(GlobalParam.EMPLOYEE_URL);
 					itemCount = newLists.size();
 					Message msg = Message.obtain();
 					msg.what = GET_NEWS_INFO;
@@ -152,34 +167,25 @@ public class BenkeshengFragment extends Fragment {
 				final String newsId = news.getId();
 				final String flag = news.getFlag();
 				if (NetWorkUtils.checkNetState(getActivity())) {
-					Intent intent = new Intent(getActivity(),
-							NewsDetailInfoActivity.class);
-					intent.putExtra("newsId", newsId);
-					intent.putExtra("flag", flag);
-					intent.putExtra("baseUrl", baseUrl);
-					startActivity(intent);
+					// Intent intent = new Intent(getActivity(),
+					// NewsDetailInfoActivity.class);
+					// intent.putExtra("newsId", newsId);
+					// intent.putExtra("flag", flag);
+					// intent.putExtra("baseUrl", baseUrl);
+					// startActivity(intent);
+					// 切换fragment
+					// EmployDetailInfoFragment detailInfoFragment = new
+					// EmployDetailInfoFragment();
+					if (getActivity() instanceof MainActivity) {
+						((MainActivity) getActivity())
+								.switchFragment(new EmployDetailInfoFragment(
+										baseUrl, newsId, flag, news));
+					}
 				} else {
 					Toast.makeText(getActivity(), "网络链接超时", 1).show();
 				}
 			}
 		});
-		refreshable_view.setOnRefreshListener(new PullToRefreshListener() {
-			@Override
-			public void onRefresh() {
-				try {
-					Thread.sleep(2000);
-					int itemCount = newLists.size();
-					loadingMore(itemCount);
-					ll_loading.setVisibility(View.GONE);
-					itemCount += 15;
-					refreshable_view.finishRefreshing();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}, 0);
-
 		return view;
 	}
 
@@ -189,7 +195,7 @@ public class BenkeshengFragment extends Fragment {
 
 				@Override
 				public void run() {
-					List<News> newListsMore = paseHtml(GlobalParam.BNEKE_NEWS_FIRST
+					List<News> newListsMore = paseHtml(GlobalParam.EMPLOYEE_URL
 							+ "?u&start=" + itemCount);
 					newLists.addAll(newListsMore);
 					Message msg = Message.obtain();
@@ -290,4 +296,5 @@ public class BenkeshengFragment extends Fragment {
 		}
 		return null;
 	}
+
 }

@@ -72,7 +72,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 			f = new Fragment3();
 			break;
 		case 3:
-			f = new Fragment4();
+			f = new EmployeeInfoFragment();
 			break;
 		case 4:
 			f = new Fragment5();
@@ -85,6 +85,9 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 		// TODO Auto-generated method stub
 		if (f != null) {
 			if (getActivity() instanceof MainActivity) {
+				if (f instanceof HomeFragment) {
+					getActivity().getSupportFragmentManager().popBackStack();
+				}
 				((MainActivity) getActivity()).switchFragment(f);
 			}
 		}

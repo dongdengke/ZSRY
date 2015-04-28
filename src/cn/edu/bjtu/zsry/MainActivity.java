@@ -3,7 +3,6 @@ package cn.edu.bjtu.zsry;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
-import android.widget.Toast;
 import cn.edu.bjtu.zsry.fragment.HomeFragment;
 import cn.edu.bjtu.zsry.fragment.MenuFragment;
 
@@ -11,7 +10,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 public class MainActivity extends SlidingFragmentActivity {
-	private SlidingMenu menu;
+	public static SlidingMenu menu;
 	private HomeFragment homeFragment;
 
 	@Override
@@ -45,22 +44,11 @@ public class MainActivity extends SlidingFragmentActivity {
 		menu.toggle();
 	}
 
-	int count = 0;
-
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		// TODO Auto-generated method stub
-		count++;
+		int count = 0;
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if (count == 1) {
-				HomeFragment fragment = new HomeFragment();
-				getSupportFragmentManager().beginTransaction()
-						.replace(R.id.content_frame, fragment).commit();
-			} else if (count == 2) {
-				Toast.makeText(this, "再按一次退出应用程序", 0).show();
-			} else {
-				System.exit(0);
-			}
+			getSupportFragmentManager().popBackStack();
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
