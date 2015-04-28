@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -20,15 +19,19 @@ import android.view.View.OnClickListener;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
-import cn.edu.bjtu.zsry.bean.News;
 import cn.edu.bjtu.zsry.fragment.BenkeshengFragment;
 import cn.edu.bjtu.zsry.fragment.InternationalFragment;
+import cn.edu.bjtu.zsry.fragment.MenuFragment;
 import cn.edu.bjtu.zsry.fragment.MoreFragment;
 import cn.edu.bjtu.zsry.fragment.NewsFragment;
 import cn.edu.bjtu.zsry.fragment.YanjiushengFragment;
 import cn.edu.bjtu.zsry.global.GlobalParam;
 
-public class MainActivity extends FragmentActivity implements OnClickListener {
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+
+public class MainActivity extends SlidingFragmentActivity implements
+		OnClickListener {
 	private ViewPager viewpager;
 	private List<Fragment> pagers = new ArrayList<Fragment>();
 	private ImageView selector;
@@ -38,12 +41,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private TextView tv_yanjiusheng;
 	private TextView tv_international;
 	private TextView tv_other;
-	// 校园新闻的集合
-	private List<News> newsLists;
+	private SlidingMenu menu;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setBehindContentView(R.layout.menu);
 		setContentView(R.layout.activity_main);
 		viewpager = (ViewPager) findViewById(R.id.viewpager);
 		tv_news = (TextView) findViewById(R.id.tv_news);
@@ -51,6 +54,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		tv_yanjiusheng = (TextView) findViewById(R.id.tv_yanjiusheng);
 		tv_international = (TextView) findViewById(R.id.tv_international);
 		tv_other = (TextView) findViewById(R.id.tv_other);
+
 		initPagers();
 		MyAdapter adapter = new MyAdapter(getSupportFragmentManager());
 		viewpager.setAdapter(adapter);
@@ -90,7 +94,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					tv_other.setTextColor(Color.RED);
 					break;
 				}
-				// TODO Auto-generated method stub
 				TranslateAnimation animation = new TranslateAnimation(
 						currentPage * GlobalParam.SCREENWIDTH / 5, position
 								* GlobalParam.SCREENWIDTH / 5, 0, 0);
@@ -112,7 +115,20 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 			}
 		});
-
+		menu = getSlidingMenu();
+		menu.setMode(SlidingMenu.LEFT);
+		// 3 设置滑动菜单出来之后，内容页，显示的剩余宽度
+		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+		// 4 设置滑动菜单的阴影 设置阴影，阴影需要在开始的时候，特别暗，慢慢的变淡
+		// menu.setShadowDrawable(R.drawable.bg_brand);
+		menu.setBackgroundResource(R.drawable.bg_brand);
+		// 5 设置阴影的宽度
+		menu.setShadowWidth(R.dimen.shadow_width);
+		// 6 设置滑动菜单的范围
+		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		MenuFragment fragment = new MenuFragment();
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.menu_frame, fragment).commit();
 	}
 
 	/**
@@ -199,4 +215,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		}
 	}
 
+	public void switchFragment(Fragment f) {
+		getSupportFragmentManager().beginTransaction().replace(R.id.main, f)
+				.commit();
+		// 自动切换
+		menu.toggle();
+	}
 }
