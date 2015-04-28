@@ -26,5 +26,9 @@ public class GlobalParam {
 	 * 其他公告第一页
 	 */
 	public static final String OTHER_FIRST = "http://rjxy.bjtu.edu.cn/search.jsp";
+	/**
+	 * 学院简介url
+	 */
+	public static final String INTRODUCE_URL = "http://rjxy.bjtu.edu.cn/chinese/xyjj.jsp";
 
 }

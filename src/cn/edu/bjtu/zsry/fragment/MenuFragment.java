@@ -32,11 +32,13 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 
 	private List<String> initData() {
 		List<String> list = new ArrayList<String>();
-		list.add("fragment1");
-		list.add("fragment2");
-		list.add("fragment3");
-		list.add("fragment4");
-		list.add("fragment5");
+		list.add("首页");
+		list.add("软院简介");
+		list.add("校园美景");
+		list.add("招聘信息");
+		list.add("地图搜索");
+		list.add("交大贴吧");
+		list.add("设置更多");
 		return list;
 	}
 
@@ -61,10 +63,10 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 		Fragment f = null;
 		switch (arg2) {
 		case 0:
-			f = new Fragment1();
+			f = new HomeFragment();
 			break;
 		case 1:
-			f = new Fragment2();
+			f = new IntroduceFragment();
 			break;
 		case 2:
 			f = new Fragment3();

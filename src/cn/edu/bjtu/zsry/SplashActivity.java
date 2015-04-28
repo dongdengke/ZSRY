@@ -3,12 +3,14 @@ package cn.edu.bjtu.zsry;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import cn.edu.bjtu.zsry.global.GlobalParam;
 import cn.edu.bjtu.zsry.utils.NetWorkUtils;
 
 public class SplashActivity extends Activity {
@@ -20,6 +22,9 @@ public class SplashActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_splash);
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+		GlobalParam.SCREENWIDTH = displayMetrics.widthPixels;
 		ll_splash = (LinearLayout) findViewById(R.id.ll_splash);
 		// 实现splash界面的动画效果
 		AlphaAnimation aa = new AlphaAnimation(0.2f, 1.0f);
