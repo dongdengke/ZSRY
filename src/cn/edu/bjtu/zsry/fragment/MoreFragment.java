@@ -82,7 +82,6 @@ public class MoreFragment extends Fragment {
 					itemCount += 15;
 					refreshable_view.finishRefreshing();
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

@@ -168,8 +168,6 @@ public class BenkeshengFragment extends Fragment {
 				News news = (News) listview.getItemAtPosition(position);
 				final String newsId = news.getId();
 				final String flag = news.getFlag();
-				Toast.makeText(getActivity(), newsId + "--------" + flag, 1)
-						.show();
 				if (NetWorkUtils.checkNetState(getActivity())) {
 					Intent intent = new Intent(getActivity(),
 							NewsDetailInfoActivity.class);
