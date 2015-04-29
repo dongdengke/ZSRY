@@ -10,7 +10,7 @@ import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
@@ -152,7 +152,7 @@ public class HomeFragment extends Fragment implements OnClickListener {
 		pagers.add(new MoreFragment());
 	}
 
-	class MyAdapter extends FragmentPagerAdapter {
+	class MyAdapter extends FragmentStatePagerAdapter {
 
 		public MyAdapter(FragmentManager fm) {
 			super(fm);
@@ -187,6 +187,7 @@ public class HomeFragment extends Fragment implements OnClickListener {
 			}
 			return fm;
 		}
+
 	}
 
 	@Override

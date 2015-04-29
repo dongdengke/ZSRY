@@ -1,8 +1,14 @@
 package cn.edu.bjtu.zsry;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
+import android.view.Window;
+import android.widget.Toast;
 import cn.edu.bjtu.zsry.fragment.HomeFragment;
 import cn.edu.bjtu.zsry.fragment.MenuFragment;
 
@@ -17,6 +23,7 @@ public class MainActivity extends SlidingFragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setBehindContentView(R.layout.menu);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.content);
 		homeFragment = new HomeFragment();
 		getSupportFragmentManager().beginTransaction()
@@ -44,14 +51,64 @@ public class MainActivity extends SlidingFragmentActivity {
 		menu.toggle();
 	}
 
+	DoubleClickExitHelper doubleClick = new DoubleClickExitHelper(this);
+
+	@SuppressLint("NewApi")
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		int count = 0;
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			getSupportFragmentManager().popBackStack();
-			return true;
+			switchFragment(new HomeFragment());
+			return doubleClick.onKeyDown(keyCode, event);
 		}
 		return super.onKeyDown(keyCode, event);
 	}
 
+	class DoubleClickExitHelper {
+		private final Activity mActivity;
+		private boolean isOnKeyBacking;
+		private Handler mHandler;
+		private Toast mBackToast;
+
+		public DoubleClickExitHelper(Activity activity) {
+			mActivity = activity;
+			mHandler = new Handler(Looper.getMainLooper());
+		}
+
+		/**
+		 * Activity onKeyDown事件
+		 * */
+		public boolean onKeyDown(int keyCode, KeyEvent event) {
+			if (keyCode != KeyEvent.KEYCODE_BACK) {
+				return false;
+			}
+			if (isOnKeyBacking) {
+				mHandler.removeCallbacks(onBackTimeRunnable);
+				if (mBackToast != null) {
+					mBackToast.cancel();
+				}
+				mActivity.finish();
+				return true;
+			} else {
+				isOnKeyBacking = true;
+				if (mBackToast == null) {
+					mBackToast = Toast.makeText(mActivity, "再按一次返回", 2000);
+				}
+				mBackToast.show();
+				// 延迟两秒的时间，把Runable发出去
+				mHandler.postDelayed(onBackTimeRunnable, 2000);
+				return true;
+			}
+		}
+
+		private Runnable onBackTimeRunnable = new Runnable() {
+
+			@Override
+			public void run() {
+				isOnKeyBacking = false;
+				if (mBackToast != null) {
+					mBackToast.cancel();
+				}
+			}
+		};
+	}
 }

@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 import cn.edu.bjtu.zsry.MainActivity;
 import cn.edu.bjtu.zsry.R;
 
@@ -69,13 +70,19 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 			f = new IntroduceFragment();
 			break;
 		case 2:
-			f = new Fragment3();
+			f = new BeautifulsceneryFragment();
 			break;
 		case 3:
 			f = new EmployeeInfoFragment();
 			break;
 		case 4:
-			f = new Fragment5();
+			f = new MapFragment();
+			break;
+		case 5:
+			Toast.makeText(getActivity(), "此功能正在尽力完善中，敬请期待", 0).show();
+			break;
+		case 6:
+			f = new SettingFragment();
 			break;
 		}
 		switchFragment(f);
@@ -85,9 +92,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 		// TODO Auto-generated method stub
 		if (f != null) {
 			if (getActivity() instanceof MainActivity) {
-				if (f instanceof HomeFragment) {
-					getActivity().getSupportFragmentManager().popBackStack();
-				}
 				((MainActivity) getActivity()).switchFragment(f);
 			}
 		}

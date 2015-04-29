@@ -34,4 +34,8 @@ public class GlobalParam {
 	 * 校园招聘第一页人url
 	 */
 	public static final String EMPLOYEE_URL = "http://rjxy.bjtu.edu.cn/forLogin/morenews/moreNews462.jsp";
+	/**
+	 * 百度地图key
+	 */
+	public static final String KEY = "5997E92337A8017C36FCB95DCC225A29C64D6D39";
 }

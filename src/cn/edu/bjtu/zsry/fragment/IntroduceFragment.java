@@ -81,28 +81,31 @@ public class IntroduceFragment extends Fragment {
 		iv_icon1 = (ImageView) view.findViewById(R.id.iv_icon1);
 		iv_icon2 = (ImageView) view.findViewById(R.id.iv_icon2);
 		ll_loading.setVisibility(View.VISIBLE);
+		if (NetWorkUtils.checkNetState(getActivity())) {
+			new Thread(new Runnable() {
 
-		new Thread(new Runnable() {
+				private Message message;
 
-			private Message message;
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				if (NetWorkUtils.checkNetState(getActivity())) {
-					String text = paseHtml(GlobalParam.INTRODUCE_URL);
-					// paseHtml1(GlobalParam.INTRODUCE_URL);
-					String[] split = text.split(" ");
-					message = Message.obtain();
-					message.obj = split;
-					message.what = UPDATEUI;
-					handler.sendMessage(message);
-				} else {
-					message.what = NET_ERROR;
-					handler.sendMessage(message);
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					if (NetWorkUtils.checkNetState(getActivity())) {
+						String text = paseHtml(GlobalParam.INTRODUCE_URL);
+						// paseHtml1(GlobalParam.INTRODUCE_URL);
+						String[] split = text.split(" ");
+						message = Message.obtain();
+						message.obj = split;
+						message.what = UPDATEUI;
+						handler.sendMessage(message);
+					} else {
+						message.what = NET_ERROR;
+						handler.sendMessage(message);
+					}
 				}
-			}
-		}).start();
+			}).start();
+		} else {
+			Toast.makeText(getActivity(), "网络联接超时", 0).show();
+		}
 		return view;
 	}
 

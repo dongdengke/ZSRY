@@ -6,7 +6,21 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+   <uses-permission android:name="android.permission.GET_ACCOUNTS" />  
+<uses-permission android:name="android.permission.USE_CREDENTIALS" />  
+<uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />  
+<uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />  
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />  
+<uses-permission android:name="android.permission.INTERNET" />  
+<uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />  
+<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />  
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />  
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />  
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />  
+<uses-permission android:name="android.permission.BROADCAST_STICKY" />  
+<uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
     <uses-sdk
         android:minSdkVersion="10"
         android:targetSdkVersion="14" />
@@ -16,6 +30,10 @@
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="OZEBGsoTjePquwXwgG1XGuIN" />
+
         <activity
             android:name="cn.edu.bjtu.zsry.SplashActivity"
             android:label="@string/app_name" >
@@ -25,9 +43,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="cn.edu.bjtu.zsry.MainActivity"></activity>
-        <activity android:name="cn.edu.bjtu.zsry.NewsDetailInfoActivity"></activity>
-        <activity android:name="cn.edu.bjtu.zsry.DetailInfo"></activity>
+        <activity android:name="cn.edu.bjtu.zsry.MainActivity" >
+        </activity>
+        <activity android:name="cn.edu.bjtu.zsry.NewsDetailInfoActivity" >
+        </activity>
+        <activity android:name="cn.edu.bjtu.zsry.DetailInfo" >
+        </activity>
+
     </application>
 
 </manifest>

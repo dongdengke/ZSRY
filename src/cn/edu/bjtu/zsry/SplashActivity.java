@@ -13,6 +13,8 @@ import android.widget.Toast;
 import cn.edu.bjtu.zsry.global.GlobalParam;
 import cn.edu.bjtu.zsry.utils.NetWorkUtils;
 
+import com.baidu.mapapi.SDKInitializer;
+
 public class SplashActivity extends Activity {
 
 	private LinearLayout ll_splash;
@@ -21,6 +23,7 @@ public class SplashActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		SDKInitializer.initialize(getApplicationContext());
 		setContentView(R.layout.activity_splash);
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
