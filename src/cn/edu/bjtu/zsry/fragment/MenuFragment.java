@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 import cn.edu.bjtu.zsry.MainActivity;
 import cn.edu.bjtu.zsry.R;
 
@@ -37,10 +36,11 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 		List<String> list = new ArrayList<String>();
 		list.add("首页");
 		list.add("软院简介");
-		list.add("校园美景");
 		list.add("招聘信息");
 		list.add("地图搜索");
 		list.add("交大贴吧");
+		list.add("国际交流");
+		list.add("其他公告");
 		list.add("设置更多");
 		return list;
 	}
@@ -72,16 +72,16 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 			f = new IntroduceFragment();
 			break;
 		case 2:
-			f = new BeautifulsceneryFragment();
-			break;
-		case 3:
 			f = new EmployeeInfoFragment();
 			break;
-		case 4:
+		case 3:
 			f = new MapFragment();
 			break;
+		case 4:
+			f = new InternationalFragment();
+			break;
 		case 5:
-			Toast.makeText(getActivity(), "此功能正在尽力完善中，敬请期待", 0).show();
+			f = new MoreFragment();
 			break;
 		case 6:
 			f = new SettingFragment();

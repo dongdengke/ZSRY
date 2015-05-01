@@ -1,70 +1,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/main"
     android:orientation="vertical" >
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/tv_news"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:background="@android:color/darker_gray"
-                android:gravity="center"
-                android:text="新闻动态" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/tv_benkesheng"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:background="@android:color/darker_gray"
-                android:gravity="center"
-                android:text="本科教学" />
+        <TextView
+            android:id="@+id/tv_news"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:gravity="center"
+            android:text="新闻动态"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/tv_yanjiusheng"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:background="@android:color/darker_gray"
-                android:gravity="center"
-                android:text="研院教学" />
+        <TextView
+            android:id="@+id/tv_benkesheng"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:gravity="center"
+            android:text="本科教学"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/tv_international"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:background="@android:color/darker_gray"
-                android:gravity="center"
-                android:text="国际交流" />
+        <TextView
+            android:id="@+id/tv_yanjiusheng"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:gravity="center"
+            android:text="研院教学"
+            android:textSize="20sp" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_other"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:background="@android:color/darker_gray"
-                android:gravity="center"
-                android:text="其他公告" />
-        </LinearLayout>
+    <ImageView
+        android:id="@+id/iv_selector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="28dp"
+        android:scaleType="matrix"
+        android:background="@drawable/id_category_selector" />
 
-        <ImageView
-            android:id="@+id/iv_selector"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="matrix"
-            android:src="@drawable/id_category_selector" />
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

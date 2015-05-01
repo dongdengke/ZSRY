@@ -36,12 +36,9 @@ public class HomeFragment extends Fragment implements OnClickListener {
 	private TextView tv_news;
 	private TextView tv_benkesheng;
 	private TextView tv_yanjiusheng;
-	private TextView tv_international;
-	private TextView tv_other;
 	private SlidingMenu menu;
 	private MyAdapter adapter;
 	private MainActivity activity;
-	private MainActivity activity2;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -63,10 +60,8 @@ public class HomeFragment extends Fragment implements OnClickListener {
 		tv_news = (TextView) view.findViewById(R.id.tv_news);
 		tv_benkesheng = (TextView) view.findViewById(R.id.tv_benkesheng);
 		tv_yanjiusheng = (TextView) view.findViewById(R.id.tv_yanjiusheng);
-		tv_international = (TextView) view.findViewById(R.id.tv_international);
-		tv_other = (TextView) view.findViewById(R.id.tv_other);
-		activity2 = (MainActivity) getActivity();
-		activity2.menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		activity = (MainActivity) getActivity();
+		activity.menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		initPagers();
 		adapter = new MyAdapter(getActivity().getSupportFragmentManager());
 		viewpager.setAdapter(adapter);
@@ -78,8 +73,6 @@ public class HomeFragment extends Fragment implements OnClickListener {
 		tv_news.setOnClickListener(this);
 		tv_benkesheng.setOnClickListener(this);
 		tv_yanjiusheng.setOnClickListener(this);
-		tv_international.setOnClickListener(this);
-		tv_other.setOnClickListener(this);
 		viewpager.setOnPageChangeListener(new OnPageChangeListener() {
 
 			@Override
@@ -87,9 +80,7 @@ public class HomeFragment extends Fragment implements OnClickListener {
 				tv_news.setTextColor(Color.BLACK);
 				tv_benkesheng.setTextColor(Color.BLACK);
 				tv_yanjiusheng.setTextColor(Color.BLACK);
-				tv_international.setTextColor(Color.BLACK);
-				tv_other.setTextColor(Color.BLACK);
-				activity2.menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+				activity.menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 				switch (position) {
 				case 0:
 					tv_news.setTextColor(Color.RED);
@@ -100,16 +91,10 @@ public class HomeFragment extends Fragment implements OnClickListener {
 				case 2:
 					tv_yanjiusheng.setTextColor(Color.RED);
 					break;
-				case 3:
-					tv_international.setTextColor(Color.RED);
-					break;
-				case 4:
-					tv_other.setTextColor(Color.RED);
-					break;
 				}
 				TranslateAnimation animation = new TranslateAnimation(
-						currentPage * GlobalParam.SCREENWIDTH / 5, position
-								* GlobalParam.SCREENWIDTH / 5, 0, 0);
+						currentPage * GlobalParam.SCREENWIDTH / 3, position
+								* GlobalParam.SCREENWIDTH / 3, 0, 0);
 				animation.setFillAfter(true);
 				animation.setDuration(300);
 				selector.startAnimation(animation);
@@ -140,7 +125,7 @@ public class HomeFragment extends Fragment implements OnClickListener {
 		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
 				R.drawable.id_category_selector);
 		int bitmapWidth = bitmap.getWidth();
-		int left = (GlobalParam.SCREENWIDTH / 5 - bitmapWidth) / 2;
+		int left = (GlobalParam.SCREENWIDTH / 3 - bitmapWidth) / 2 + 30;
 		Matrix matrix = new Matrix();
 		matrix.postTranslate(left, 0);
 		selector.setImageMatrix(matrix);
@@ -150,8 +135,6 @@ public class HomeFragment extends Fragment implements OnClickListener {
 		pagers.add(new NewsFragment());
 		pagers.add(new BenkeshengFragment());
 		pagers.add(new YanjiushengFragment());
-		pagers.add(new InternationalFragment());
-		pagers.add(new MoreFragment());
 	}
 
 	class MyAdapter extends FragmentStatePagerAdapter {
@@ -180,12 +163,6 @@ public class HomeFragment extends Fragment implements OnClickListener {
 			case 2:
 				fm = new YanjiushengFragment();
 				break;
-			case 3:
-				fm = new InternationalFragment();
-				break;
-			case 4:
-				fm = new MoreFragment();
-				break;
 			}
 			return fm;
 		}
@@ -204,12 +181,6 @@ public class HomeFragment extends Fragment implements OnClickListener {
 			break;
 		case R.id.tv_yanjiusheng:
 			viewpager.setCurrentItem(2);
-			break;
-		case R.id.tv_international:
-			viewpager.setCurrentItem(3);
-			break;
-		case R.id.tv_other:
-			viewpager.setCurrentItem(4);
 			break;
 		}
 	}
