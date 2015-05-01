@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="50dp"
+    android:layout_marginRight="50dp"
+    android:background="@drawable/list_activated_holo"
+	 android:orientation="vertical" >
+    
+<TextView 
+    android:layout_marginLeft="10dp"
+    android:id="@+id/tv_latAndlong"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="经纬度"/>
+<TextView 
+       android:layout_marginLeft="10dp"
+    android:id="@+id/tv_accurce"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="精确度"/>
+<TextView 
+       android:layout_marginLeft="10dp"
+    android:id="@+id/tv_time"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="定位时间"/>
+<TextView 
+       android:layout_marginLeft="10dp"
+    android:id="@+id/tv_code"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="城市编码"/>
+<TextView 
+       android:layout_marginLeft="10dp"
+    android:id="@+id/tv_addess"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="地址描述"/>
+<TextView 
+       android:layout_marginLeft="10dp"
+    android:id="@+id/tv_distruct"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="区"/>
+
+</LinearLayout>

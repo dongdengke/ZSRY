@@ -3,7 +3,7 @@
     package="cn.edu.bjtu.zsry"
     android:versionCode="1"
     android:versionName="1.0" >
-
+	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>  
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -11,8 +11,6 @@
 <uses-permission android:name="android.permission.USE_CREDENTIALS" />  
 <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />  
 <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />  
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />  
-<uses-permission android:name="android.permission.INTERNET" />  
 <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />  
 <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />  
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />  
@@ -20,6 +18,13 @@
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />  
 <uses-permission android:name="android.permission.BROADCAST_STICKY" />  
 <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+<!-- 这个权限用于进行网络定位-->
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+<!-- 这个权限用于访问GPS定位-->
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
+<!--允许应用读取低级别的系统日志文件 -->
+<uses-permission android:name="android.permission.READ_LOGS"></uses-permission>
 
     <uses-sdk
         android:minSdkVersion="10"
@@ -49,7 +54,8 @@
         </activity>
         <activity android:name="cn.edu.bjtu.zsry.DetailInfo" >
         </activity>
-
+<service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
+</service>
     </application>
 
 </manifest>

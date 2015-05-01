@@ -1,10 +1,13 @@
 package cn.edu.bjtu.zsry.global;
 
+import com.baidu.location.LocationClient;
+
 public class GlobalParam {
 	/**
 	 * 屏幕宽度
 	 */
 	public static int SCREENWIDTH = 0;
+	public static LocationClient LOCATIONCLIENT;
 	/**
 	 * 新闻的url
 	 */

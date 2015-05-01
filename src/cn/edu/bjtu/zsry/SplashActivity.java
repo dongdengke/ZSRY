@@ -13,6 +13,8 @@ import android.widget.Toast;
 import cn.edu.bjtu.zsry.global.GlobalParam;
 import cn.edu.bjtu.zsry.utils.NetWorkUtils;
 
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
 
 public class SplashActivity extends Activity {
@@ -25,6 +27,17 @@ public class SplashActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		SDKInitializer.initialize(getApplicationContext());
 		setContentView(R.layout.activity_splash);
+		LocationClient locationClient = new LocationClient(
+				getApplicationContext());
+		GlobalParam.LOCATIONCLIENT = locationClient;
+		LocationClientOption option = new LocationClientOption();
+		option.setOpenGps(true);
+		option.setAddrType("all");// 返回的定位结果包含地址信息
+		option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度,默认值gcj02
+		option.setScanSpan(5000);// 设置发起定位请求的间隔时间为5000ms
+		option.SetIgnoreCacheException(true);
+		option.setIsNeedAddress(true);
+		locationClient.setLocOption(option);
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 		GlobalParam.SCREENWIDTH = displayMetrics.widthPixels;
