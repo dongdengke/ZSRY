@@ -16,6 +16,8 @@ import android.widget.Toast;
 import cn.edu.bjtu.zsry.MainActivity;
 import cn.edu.bjtu.zsry.R;
 
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+
 public class MenuFragment extends Fragment implements OnItemClickListener {
 
 	private View view;
@@ -92,6 +94,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 		// TODO Auto-generated method stub
 		if (f != null) {
 			if (getActivity() instanceof MainActivity) {
+				MainActivity activity = (MainActivity) getActivity();
+				activity.menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
 				((MainActivity) getActivity()).switchFragment(f);
 			}
 		}

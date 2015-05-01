@@ -35,6 +35,8 @@ import cn.edu.bjtu.zsry.pulltorefresh.RefreshableView;
 import cn.edu.bjtu.zsry.pulltorefresh.RefreshableView.PullToRefreshListener;
 import cn.edu.bjtu.zsry.utils.NetWorkUtils;
 
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+
 public class EmployeeInfoFragment extends Fragment {
 
 	private static final int GET_NEWS_INFO = 1;
@@ -167,16 +169,10 @@ public class EmployeeInfoFragment extends Fragment {
 				final String newsId = news.getId();
 				final String flag = news.getFlag();
 				if (NetWorkUtils.checkNetState(getActivity())) {
-					// Intent intent = new Intent(getActivity(),
-					// NewsDetailInfoActivity.class);
-					// intent.putExtra("newsId", newsId);
-					// intent.putExtra("flag", flag);
-					// intent.putExtra("baseUrl", baseUrl);
-					// startActivity(intent);
-					// 切换fragment
-					// EmployDetailInfoFragment detailInfoFragment = new
-					// EmployDetailInfoFragment();
 					if (getActivity() instanceof MainActivity) {
+						MainActivity activity = (MainActivity) getActivity();
+						activity.menu
+								.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
 						((MainActivity) getActivity())
 								.switchFragment(new EmployDetailInfoFragment(
 										baseUrl, newsId, flag, news));

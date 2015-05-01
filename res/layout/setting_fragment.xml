@@ -15,7 +15,7 @@
             android:id="@+id/iv_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/icon" />
 
         <TextView
@@ -50,24 +50,27 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginBottom="2dp"
             android:layout_marginTop="2dp"
             android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
                 android:text="版本特性"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
                 android:src="@drawable/tieba_icon_arrow_right" />
         </RelativeLayout>
 
@@ -78,29 +81,32 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginBottom="2dp"
             android:layout_marginTop="2dp"
             android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
                 android:text="检查更新"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
                 android:src="@drawable/tieba_icon_arrow_right" />
         </RelativeLayout>
     </LinearLayout>
-    
-     <LinearLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -111,24 +117,26 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginBottom="2dp"
             android:layout_marginTop="2dp"
             android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
                 android:text="清除缓存"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="8dp"
                 android:src="@drawable/tieba_icon_arrow_right" />
         </RelativeLayout>
 
@@ -139,29 +147,31 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginBottom="2dp"
             android:layout_marginTop="2dp"
             android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
                 android:text="反馈建议"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="8dp"
                 android:src="@drawable/tieba_icon_arrow_right" />
         </RelativeLayout>
     </LinearLayout>
-    
-      <LinearLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -172,24 +182,26 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginBottom="2dp"
             android:layout_marginTop="2dp"
             android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
                 android:text="分享好友"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="8dp"
                 android:src="@drawable/tieba_icon_arrow_right" />
         </RelativeLayout>
 
@@ -200,24 +212,26 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginBottom="2dp"
             android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
                 android:text="关于掌尚软院"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="8dp"
                 android:src="@drawable/tieba_icon_arrow_right" />
         </RelativeLayout>
     </LinearLayout>

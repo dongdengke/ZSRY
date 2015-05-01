@@ -41,6 +41,7 @@ public class HomeFragment extends Fragment implements OnClickListener {
 	private SlidingMenu menu;
 	private MyAdapter adapter;
 	private MainActivity activity;
+	private MainActivity activity2;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -64,7 +65,8 @@ public class HomeFragment extends Fragment implements OnClickListener {
 		tv_yanjiusheng = (TextView) view.findViewById(R.id.tv_yanjiusheng);
 		tv_international = (TextView) view.findViewById(R.id.tv_international);
 		tv_other = (TextView) view.findViewById(R.id.tv_other);
-		activity = new MainActivity();
+		activity2 = (MainActivity) getActivity();
+		activity2.menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		initPagers();
 		adapter = new MyAdapter(getActivity().getSupportFragmentManager());
 		viewpager.setAdapter(adapter);
@@ -87,7 +89,7 @@ public class HomeFragment extends Fragment implements OnClickListener {
 				tv_yanjiusheng.setTextColor(Color.BLACK);
 				tv_international.setTextColor(Color.BLACK);
 				tv_other.setTextColor(Color.BLACK);
-				activity.menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+				activity2.menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 				switch (position) {
 				case 0:
 					tv_news.setTextColor(Color.RED);
