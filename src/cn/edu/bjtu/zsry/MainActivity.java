@@ -1,6 +1,5 @@
 package cn.edu.bjtu.zsry;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -53,7 +52,6 @@ public class MainActivity extends SlidingFragmentActivity {
 
 	DoubleClickExitHelper doubleClick = new DoubleClickExitHelper(this);
 
-	@SuppressLint("NewApi")
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {

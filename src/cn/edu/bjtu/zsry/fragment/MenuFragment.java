@@ -26,8 +26,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 		super.onActivityCreated(savedInstanceState);
 		ListView list_view = (ListView) view.findViewById(R.id.list_view);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-				android.R.layout.simple_list_item_1, android.R.id.text1,
-				initData());
+				R.layout.menue_item, R.id.tv_title, initData());
 		list_view.setAdapter(adapter);
 		list_view.setOnItemClickListener(this);
 	}

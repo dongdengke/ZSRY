@@ -9,7 +9,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -161,7 +160,6 @@ public class EmployeeInfoFragment extends Fragment {
 				.findViewById(R.id.refreshable_view);
 		listview.setOnItemClickListener(new OnItemClickListener() {
 
-			@SuppressLint("SetJavaScriptEnabled")
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -173,9 +171,11 @@ public class EmployeeInfoFragment extends Fragment {
 						MainActivity activity = (MainActivity) getActivity();
 						activity.menu
 								.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+						EmployDetailInfoFragment employDetailInfoFragment = new EmployDetailInfoFragment(
+								baseUrl, newsId, flag, news);
 						((MainActivity) getActivity())
-								.switchFragment(new EmployDetailInfoFragment(
-										baseUrl, newsId, flag, news));
+								.switchFragment(employDetailInfoFragment);
+
 					}
 				} else {
 					Toast.makeText(getActivity(), "网络链接超时", 1).show();

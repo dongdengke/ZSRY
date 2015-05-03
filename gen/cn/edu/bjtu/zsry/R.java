@@ -166,12 +166,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int mode_walk_focused=0x7f02001b;
         public static final int mode_walk_off=0x7f02001c;
         public static final int mode_walk_on=0x7f02001d;
-        public static final int no_work=0x7f02001e;
-        public static final int shadow=0x7f02001f;
-        public static final int start_point=0x7f020020;
-        public static final int tieba_background=0x7f020021;
-        public static final int tieba_bg_list_all=0x7f020022;
-        public static final int tieba_icon_arrow_right=0x7f020023;
+        public static final int network_error=0x7f02001e;
+        public static final int no_work=0x7f02001f;
+        public static final int shadow=0x7f020020;
+        public static final int start_point=0x7f020021;
+        public static final int tieba_background=0x7f020022;
+        public static final int tieba_bg_list_all=0x7f020023;
+        public static final int tieba_icon_arrow_right=0x7f020024;
     }
     public static final class id {
         public static final int action_settings=0x7f040040;
@@ -253,15 +254,16 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int list_view=0x7f030009;
         public static final int map_fragment=0x7f03000a;
         public static final int menu=0x7f03000b;
-        public static final int more_fragment=0x7f03000c;
-        public static final int news=0x7f03000d;
-        public static final int news_fragment=0x7f03000e;
-        public static final int news_listview_item=0x7f03000f;
-        public static final int pop=0x7f030010;
-        public static final int pull_to_refresh=0x7f030011;
-        public static final int setting_fragment=0x7f030012;
-        public static final int slidingmenumain=0x7f030013;
-        public static final int yanjiusheng_fragment=0x7f030014;
+        public static final int menue_item=0x7f03000c;
+        public static final int more_fragment=0x7f03000d;
+        public static final int news=0x7f03000e;
+        public static final int news_fragment=0x7f03000f;
+        public static final int news_listview_item=0x7f030010;
+        public static final int pop=0x7f030011;
+        public static final int pull_to_refresh=0x7f030012;
+        public static final int setting_fragment=0x7f030013;
+        public static final int slidingmenumain=0x7f030014;
+        public static final int yanjiusheng_fragment=0x7f030015;
     }
     public static final class menu {
         public static final int main=0x7f080000;
