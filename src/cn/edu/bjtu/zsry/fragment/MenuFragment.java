@@ -37,7 +37,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 		list.add("软院简介");
 		list.add("招聘信息");
 		list.add("地图搜索");
-		list.add("交大贴吧");
 		list.add("国际交流");
 		list.add("其他公告");
 		list.add("设置更多");
@@ -95,7 +94,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 			if (getActivity() instanceof MainActivity) {
 				MainActivity activity = (MainActivity) getActivity();
 				activity.menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
-				((MainActivity) getActivity()).switchFragment(f);
+				((MainActivity) getActivity()).menueSwitchFragment(f);
 			}
 		}
 	}

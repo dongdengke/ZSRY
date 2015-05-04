@@ -10,7 +10,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -28,13 +27,15 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import cn.edu.bjtu.zsry.NewsDetailInfoActivity;
+import cn.edu.bjtu.zsry.MainActivity;
 import cn.edu.bjtu.zsry.R;
 import cn.edu.bjtu.zsry.bean.News;
 import cn.edu.bjtu.zsry.global.GlobalParam;
 import cn.edu.bjtu.zsry.pulltorefresh.RefreshableView;
 import cn.edu.bjtu.zsry.pulltorefresh.RefreshableView.PullToRefreshListener;
 import cn.edu.bjtu.zsry.utils.NetWorkUtils;
+
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 public class BenkeshengFragment extends Fragment {
 	private static final int GET_NEWS_INFO = 1;
@@ -152,12 +153,21 @@ public class BenkeshengFragment extends Fragment {
 				final String newsId = news.getId();
 				final String flag = news.getFlag();
 				if (NetWorkUtils.checkNetState(getActivity())) {
-					Intent intent = new Intent(getActivity(),
-							NewsDetailInfoActivity.class);
-					intent.putExtra("newsId", newsId);
-					intent.putExtra("flag", flag);
-					intent.putExtra("baseUrl", baseUrl);
-					startActivity(intent);
+					// Intent intent = new Intent(getActivity(),
+					// NewsDetailInfoActivity.class);
+					// intent.putExtra("newsId", newsId);
+					// intent.putExtra("flag", flag);
+					// intent.putExtra("baseUrl", baseUrl);
+					// startActivity(intent);
+					if (getActivity() instanceof MainActivity) {
+						MainActivity activity = (MainActivity) getActivity();
+						activity.menu
+								.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+						BenkeShengDetailInfoFragment shengDetailInfoFragment = new BenkeShengDetailInfoFragment(
+								baseUrl, newsId, flag, news);
+						((MainActivity) getActivity())
+								.switchFragment(shengDetailInfoFragment);
+					}
 				} else {
 					Toast.makeText(getActivity(), "网络链接超时", 1).show();
 				}
@@ -198,7 +208,7 @@ public class BenkeshengFragment extends Fragment {
 				}
 			}).start();
 		} else {
-			Toast.makeText(getActivity(), "网络联接超时", 1).show();
+			Toast.makeText(getActivity(), "网络联接超时", Toast.LENGTH_SHORT).show();
 			ll_loading.setVisibility(View.GONE);
 		}
 
@@ -241,8 +251,10 @@ public class BenkeshengFragment extends Fragment {
 			holder.tv_date = (TextView) view.findViewById(R.id.tv_date);
 			holder.tv_title = (TextView) view.findViewById(R.id.tv_title);
 			News news = newLists.get(position);
-			holder.tv_date.setText(news.getDate());
-			holder.tv_title.setText(news.getTitle());
+			String date = news.getDate().toString().trim();
+			String title = news.getTitle().toString().trim();
+			holder.tv_date.setText(date);
+			holder.tv_title.setText(title);
 			return view;
 		}
 	}

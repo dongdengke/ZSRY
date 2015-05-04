@@ -47,6 +47,13 @@ public class MainActivity extends SlidingFragmentActivity {
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.content_frame, f).commit();
 		// 自动切换
+		// menu.toggle();
+	}
+
+	public void menueSwitchFragment(Fragment f) {
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.content_frame, f).commit();
+		// 自动切换
 		menu.toggle();
 	}
 

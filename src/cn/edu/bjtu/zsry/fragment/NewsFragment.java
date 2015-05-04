@@ -10,7 +10,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,13 +26,15 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import cn.edu.bjtu.zsry.NewsDetailInfoActivity;
+import cn.edu.bjtu.zsry.MainActivity;
 import cn.edu.bjtu.zsry.R;
 import cn.edu.bjtu.zsry.bean.News;
 import cn.edu.bjtu.zsry.global.GlobalParam;
 import cn.edu.bjtu.zsry.pulltorefresh.RefreshableView;
 import cn.edu.bjtu.zsry.pulltorefresh.RefreshableView.PullToRefreshListener;
 import cn.edu.bjtu.zsry.utils.NetWorkUtils;
+
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 public class NewsFragment extends Fragment {
 	protected static final int GET_NEWS_INFO = 1;
@@ -179,11 +180,20 @@ public class NewsFragment extends Fragment {
 				final String newsId = news.getId();
 				final String flag = news.getFlag();
 				if (NetWorkUtils.checkNetState(getActivity())) {
-					Intent intent = new Intent(getActivity(),
-							NewsDetailInfoActivity.class);
-					intent.putExtra("newsId", newsId);
-					intent.putExtra("baseUrl", baseUrlStr);
-					startActivity(intent);
+					// Intent intent = new Intent(getActivity(),
+					// NewsDetailInfoActivity.class);
+					// intent.putExtra("newsId", newsId);
+					// intent.putExtra("baseUrl", baseUrlStr);
+					// startActivity(intent);
+					if (getActivity() instanceof MainActivity) {
+						MainActivity activity = (MainActivity) getActivity();
+						activity.menu
+								.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+						NewsDetailInfoFragment newsDetailInfoFragment = new NewsDetailInfoFragment(
+								baseUrlStr, newsId, flag, news);
+						((MainActivity) getActivity())
+								.switchFragment(newsDetailInfoFragment);
+					}
 				} else {
 					Toast.makeText(getActivity(), "网络链接超时", 1).show();
 				}
