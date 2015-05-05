@@ -9,10 +9,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,32 +27,71 @@ import cn.edu.bjtu.zsry.bean.News;
 import cn.edu.bjtu.zsry.global.GlobalParam;
 import cn.edu.bjtu.zsry.utils.NetWorkUtils;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.ImageLoader.ImageCache;
+import com.android.volley.toolbox.ImageLoader.ImageContainer;
+import com.android.volley.toolbox.ImageLoader.ImageListener;
+import com.android.volley.toolbox.Volley;
+
 public class IntroduceFragment extends Fragment {
 
 	protected static final int UPDATEUI = 1;
-	protected static final int NET_ERROR = 2;
 	private View view;
 	private LinearLayout ll_container;
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case UPDATEUI:
-				String[] spit = (String[]) msg.obj;
 				TextView tv;
 				ll_loading.setVisibility(View.GONE);
 				iv_icon1.setImageResource(R.drawable.introduce1);
 				iv_icon2.setImageResource(R.drawable.introduce2);
-				for (int i = 0; i < spit.length; i++) {
-					tv = new TextView(getActivity());
-					tv.setText("		" + spit[i]);
-					tv.setTextSize(20);
-					ll_container.addView(tv);
+				// for (int i = 0; i < spit.length; i++) {
+				// tv = new TextView(getActivity());
+				// tv.setText("		" + spit[i]);
+				// tv.setTextSize(20);
+				// ll_container.addView(tv);
+				// }
+				ArrayList<String> newLists = (ArrayList<String>) msg.obj;
+				ll_loading.setVisibility(View.GONE);
+				for (String string : newLists) {
+					if (string.startsWith("/")) {// 加载图片
+						final ImageView imageView = new ImageView(getActivity());
+						RequestQueue mRequestQueue = Volley
+								.newRequestQueue(getActivity());
+						final LruCache<String, Bitmap> mImageCache = new LruCache<String, Bitmap>(
+								20);
+						ImageCache imageCache = new ImageCache() {
+							@Override
+							public void putBitmap(String key, Bitmap value) {
+								mImageCache.put(key, value);
+							}
+
+							@Override
+							public Bitmap getBitmap(String key) {
+								return mImageCache.get(key);
+							}
+						};
+						ImageLoader mImageLoader = new ImageLoader(
+								mRequestQueue, imageCache);
+						// imageView是一个ImageView实例
+						// ImageLoader.getImageListener的第二个参数是默认的图片resource
+						// 第三个参数是请求失败时候的资源id，可以指定为0
+						ImageListener listener = ImageLoader.getImageListener(
+								imageView, android.R.drawable.ic_menu_rotate,
+								android.R.drawable.ic_delete);
+						ImageContainer imageContainer = mImageLoader.get(
+								"http://rjxy.bjtu.edu.cn" + string, listener);
+						ll_container.addView(imageView);
+					} else {// 加载文字
+						tv = new TextView(getActivity());
+						tv.setText("		" + string);
+						tv.setTextSize(18);
+						ll_container.addView(tv);
+					}
 				}
 				break;
-			case NET_ERROR:
-				Toast.makeText(getActivity(), "网络联接错误", 0).show();
-				break;
-
 			default:
 				break;
 			}
@@ -84,21 +125,14 @@ public class IntroduceFragment extends Fragment {
 		if (NetWorkUtils.checkNetState(getActivity())) {
 			new Thread(new Runnable() {
 
-				private Message message = Message.obtain();
-
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					if (NetWorkUtils.checkNetState(getActivity())) {
-						String text = paseHtml(GlobalParam.INTRODUCE_URL);
-						// paseHtml1(GlobalParam.INTRODUCE_URL);
-						String[] split = text.split(" ");
-						message.what = UPDATEUI;
-						handler.sendMessage(message);
-					} else {
-						message.what = NET_ERROR;
-						handler.sendMessage(message);
-					}
+					Message message = Message.obtain();
+					ArrayList<String> content = paseHtml(GlobalParam.INTRODUCE_URL);
+					message.what = UPDATEUI;
+					message.obj = content;
+					handler.sendMessage(message);
 				}
 			}).start();
 		} else {
@@ -107,7 +141,32 @@ public class IntroduceFragment extends Fragment {
 		return view;
 	}
 
-	public static String paseHtml(String url) {
+	public static ArrayList<String> paseHtml(String url) {
+		Elements newsElements = null;
+		ArrayList<String> newsList = new ArrayList<String>();
+		try {
+			URL newsUrl = new URL(url);
+			Document parse;
+			parse = Jsoup.parse(newsUrl, 8000);
+			newsElements = parse.getElementsByTag("p");
+			for (Element element : newsElements) {
+				Elements elementsByTag = element.getElementsByTag("img");
+				for (Element element2 : elementsByTag) {
+					String attr = element2.attr("src");
+					if (attr != null) {
+						newsList.add(attr);
+					}
+				}
+				newsList.add(element.text());
+			}
+			return newsList;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static String paseHtml1(String url) {
 		Elements newsElements = null;
 		List<News> newsLists = new ArrayList<News>();
 		StringBuffer buffer = new StringBuffer();
@@ -127,35 +186,4 @@ public class IntroduceFragment extends Fragment {
 		return null;
 	}
 
-	public static List<String> paseHtml1(String url) {
-		Elements newsElements = null;
-		List<String> newsLists = new ArrayList<String>();
-		News news;
-		try {
-			URL newsUrl = new URL(url);
-			Document parse;
-			parse = Jsoup.parse(newsUrl, 2000);
-			newsElements = parse.getElementsByTag("p");
-			for (Element element : newsElements) {
-				// Elements elementsByTag = element.getElementsByTag("img");
-				// for (Element element2 : elementsByTag) {
-				// Element select = element2.select("img").first();
-				// String linkHrefw = select.attr("src");
-				// newsLists.add(linkHrefw);
-				// }
-				Elements siblingElements = element.siblingElements();
-				for (Element element2 : siblingElements) {
-					Elements siblingElements2 = element2.siblingElements();
-					for (Element element3 : siblingElements2) {
-
-					}
-				}
-			}
-			System.out.println(newsLists.size() + "=================");
-			return newsLists;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 }

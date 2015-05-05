@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <TextView 
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+		android:layout_marginTop="20dp"
+		android:layout_marginRight="20dp"
+		android:text="反馈信息"
+		android:textSize="20sp"
+        />
+
+    <EditText
+        android:gravity="clip_horizontal"
+        android:layout_below="@id/tv_title"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:layout_marginBottom="50dp"
+        android:id="@+id/ed_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:hint="我想说" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_style_one_normal"
+            android:text="取消" />
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_style_one_normal"
+            android:text="发送" />
+    </LinearLayout>
+
+</RelativeLayout>

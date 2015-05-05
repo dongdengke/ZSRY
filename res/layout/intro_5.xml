@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/w01"
+      android:id="@+id/rl_intro_5"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tv_new_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="35.0dip"
+        android:gravity="center"
+        android:text=" \n \n美好的事情，在此刻发生！"
+        android:textColor="@android:color/white"
+        android:textSize="24.0sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/startBtn"
+        android:layout_width="120.0dip"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="120.0dip"
+        android:background="@drawable/btn_style_green"
+        android:onClick="startbutton"
+        android:text="开始"
+        android:textColor="#ffffffff"
+        android:textSize="18.0sp" />
+
+</RelativeLayout>

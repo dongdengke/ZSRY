@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/rl_intro_1"
+    android:background="@drawable/intro_1" >
+
+    <TextView
+        android:id="@+id/intro1_tv1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75.0dip"
+        android:gravity="center_horizontal"
+        android:text="掌尚软院"
+        android:textColor="@android:color/white"
+        android:textSize="27.0sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/intro1_tv1"
+        android:layout_marginTop="10.0dip"
+        android:gravity="center_horizontal"
+        android:text="以梦想致敬青春"
+        android:textColor="@android:color/white"
+        android:textSize="27.0sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

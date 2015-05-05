@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/call_show_addmark_bg" >
+
+    <LinearLayout
+        android:id="@+id/ll_about_rjxy"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3.0dip"
+            android:layout_marginTop="7.0dip"
+            android:text="@string/about_title1"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textSize="23.0sp" >
+        </TextView>
+          <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3.0dip"
+            android:layout_marginTop="7.0dip"
+            android:text="@string/about_body1"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" >
+        </TextView>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3.0dip"
+            android:layout_marginTop="7.0dip"
+            android:text="@string/about_title2"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textSize="23.0sp" >
+        </TextView>
+          <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3.0dip"
+            android:layout_marginTop="7.0dip"
+            android:text="@string/about_body2"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" >
+        </TextView>
+           <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3.0dip"
+            android:layout_marginTop="7.0dip"
+            android:text="@string/about_title3"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textSize="23.0sp" >
+        </TextView>
+          <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3.0dip"
+            android:layout_marginTop="7.0dip"
+            android:text="@string/about_body3"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" >
+        </TextView>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3.0dip"
+            android:layout_marginTop="7.0dip"
+            android:text="@string/about_title4"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textSize="23.0sp" >
+        </TextView>
+          <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3.0dip"
+            android:layout_marginTop="7.0dip"
+            android:text="@string/about_body4"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" >
+        </TextView>
+    </LinearLayout>
+
+</ScrollView>
