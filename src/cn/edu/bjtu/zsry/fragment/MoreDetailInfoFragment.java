@@ -139,8 +139,8 @@ public class MoreDetailInfoFragment extends Fragment {
 		final String urlStr = baseUrl + newsId + "&flag=" + flag;
 		ll_loading.setVisibility(View.VISIBLE);
 		queue = Volley.newRequestQueue(getActivity());
+		final Message message = Message.obtain();
 		new Thread(new Runnable() {
-			Message message;
 
 			@Override
 			public void run() {
@@ -149,7 +149,6 @@ public class MoreDetailInfoFragment extends Fragment {
 					if (newLists.isEmpty()) {
 						newLists = paseHtml(urlStr, "p");
 					}
-					message = Message.obtain();
 					message.obj = newLists;
 
 					message.what = UPDATEUI;

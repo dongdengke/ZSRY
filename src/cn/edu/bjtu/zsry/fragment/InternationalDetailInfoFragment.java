@@ -142,13 +142,12 @@ public class InternationalDetailInfoFragment extends Fragment {
 		ll_loading.setVisibility(View.VISIBLE);
 		queue = Volley.newRequestQueue(getActivity());
 		new Thread(new Runnable() {
-			Message message;
+			Message message = Message.obtain();
 
 			@Override
 			public void run() {
 				if (NetWorkUtils.checkNetState(getActivity())) {
 					ArrayList<String> newLists = paseHtml(urlStr);
-					message = Message.obtain();
 					message.obj = newLists;
 					message.what = UPDATEUI;
 					handler.sendMessage(message);

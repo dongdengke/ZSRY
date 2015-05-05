@@ -46,12 +46,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="28dp"
-        android:scaleType="matrix"
-        android:background="@drawable/id_category_selector" />
+        android:background="@drawable/id_category_selector"
+        android:scaleType="matrix" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
+
 
 </LinearLayout>

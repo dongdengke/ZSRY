@@ -43,8 +43,8 @@ public class NewsFragment extends Fragment {
 	private ListView listview;
 	private List<News> newLists;
 	private String baseUrlStr = "http://rjxy.bjtu.edu.cn/forLogin/news_apply_show.jsp?id=";
+	private MyListviewAdapter adapter;
 	private Handler handler = new Handler() {
-		private MyListviewAdapter adapter;
 
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -235,6 +235,7 @@ public class NewsFragment extends Fragment {
 		public int getCount() {
 			// TODO Auto-generated method stub
 			return newLists.size();
+
 		}
 
 		@Override

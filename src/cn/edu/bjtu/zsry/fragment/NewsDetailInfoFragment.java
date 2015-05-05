@@ -96,7 +96,6 @@ public class NewsDetailInfoFragment extends Fragment {
 				tv.setText("发布时间：" + news.getDate());
 				tv.setTextSize(14);
 				ll_container.addView(tv);
-
 				break;
 			case NET_ERROR:
 				Toast.makeText(getActivity(), "网络联接错误", 0).show();
@@ -142,7 +141,7 @@ public class NewsDetailInfoFragment extends Fragment {
 		ll_loading.setVisibility(View.VISIBLE);
 		queue = Volley.newRequestQueue(getActivity());
 		new Thread(new Runnable() {
-			Message message;
+			Message message = Message.obtain();
 
 			@Override
 			public void run() {
@@ -151,7 +150,6 @@ public class NewsDetailInfoFragment extends Fragment {
 					if (newLists.isEmpty()) {
 						newLists = paseHtmlContainSpan(urlStr, "span");
 					}
-					message = Message.obtain();
 					message.obj = newLists;
 					message.what = UPDATEUI;
 					handler.sendMessage(message);

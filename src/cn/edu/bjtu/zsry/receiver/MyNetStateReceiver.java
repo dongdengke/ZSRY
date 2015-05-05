@@ -11,15 +11,18 @@ public class MyNetStateReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		ConnectivityManager connectivityManager = (ConnectivityManager) context
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo mobNetInfo = connectivityManager
-				.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-		NetworkInfo wifiNetInfo = connectivityManager
-				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+		String action = intent.getAction();
+		if (action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+			ConnectivityManager connectivityManager = (ConnectivityManager) context
+					.getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo mobNetInfo = connectivityManager
+					.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+			NetworkInfo wifiNetInfo = connectivityManager
+					.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
-		if (!mobNetInfo.isConnected() && !wifiNetInfo.isConnected()) {
-			NetWorkState.NET_WORK_STATE = "NO_NETWORK";
+			if (!mobNetInfo.isConnected() && !wifiNetInfo.isConnected()) {
+				NetWorkState.NET_WORK_STATE = "NO_NETWORK";
+			}
 		}
 	}
 

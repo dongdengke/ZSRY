@@ -98,7 +98,7 @@ public class EmployDetailInfoFragment extends Fragment {
 		tv_title = (TextView) view.findViewById(R.id.tv_title);
 		final String urlStr = baseUrl + newsId + "&flag=" + flag;
 		new Thread(new Runnable() {
-			Message message;
+			Message message = Message.obtain();;
 
 			@Override
 			public void run() {
@@ -106,7 +106,6 @@ public class EmployDetailInfoFragment extends Fragment {
 					String text = paseHtml(urlStr);
 					// paseHtml1(GlobalParam.INTRODUCE_URL);
 					String[] split = text.split(" ");
-					message = Message.obtain();
 					message.obj = split;
 					message.what = UPDATEUI;
 					handler.sendMessage(message);

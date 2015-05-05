@@ -84,7 +84,7 @@ public class IntroduceFragment extends Fragment {
 		if (NetWorkUtils.checkNetState(getActivity())) {
 			new Thread(new Runnable() {
 
-				private Message message;
+				private Message message = Message.obtain();
 
 				@Override
 				public void run() {
@@ -93,8 +93,6 @@ public class IntroduceFragment extends Fragment {
 						String text = paseHtml(GlobalParam.INTRODUCE_URL);
 						// paseHtml1(GlobalParam.INTRODUCE_URL);
 						String[] split = text.split(" ");
-						message = Message.obtain();
-						message.obj = split;
 						message.what = UPDATEUI;
 						handler.sendMessage(message);
 					} else {

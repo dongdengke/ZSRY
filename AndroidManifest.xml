@@ -27,7 +27,7 @@
 <uses-permission android:name="android.permission.READ_LOGS"></uses-permission>
 
     <uses-sdk
-        android:minSdkVersion="10"
+        android:minSdkVersion="14"
         android:targetSdkVersion="14" />
 
     <application
@@ -56,6 +56,7 @@
         </activity>
 <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
 </service>
+<service android:name="cn.edu.bjtu.zsry.serviced.ReceiveMsgService"></service>
     </application>
 
 </manifest>

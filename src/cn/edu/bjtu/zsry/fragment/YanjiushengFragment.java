@@ -44,14 +44,15 @@ public class YanjiushengFragment extends Fragment {
 	private ListView listview;
 	private List<News> newLists;
 	private String baseUrl = "http://rjxy.bjtu.edu.cn/forLogin/notice_apply_show.jsp?id=";
+	private MyListviewAdapter adapter;
 	private Handler handler = new Handler() {
-		private MyListviewAdapter adapter;
 
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case GET_NEWS_INFO:
 				ll_loading.setVisibility(View.GONE);
 				adapter = new MyListviewAdapter();
+
 				listview.setAdapter(adapter);
 				break;
 			case GET_NEWS_INFO_MORE:
@@ -299,4 +300,5 @@ public class YanjiushengFragment extends Fragment {
 		}
 		return null;
 	}
+
 }

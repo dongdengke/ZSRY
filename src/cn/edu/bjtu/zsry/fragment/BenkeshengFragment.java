@@ -302,4 +302,9 @@ public class BenkeshengFragment extends Fragment {
 		}
 		return null;
 	}
+
+	// public void onRestoreInstanceState(Bundle savedInstanceState) {
+	// // TODO Auto-generated method stub
+	// super.onRestoreInstanceState(savedInstanceState);
+	// }
 }
