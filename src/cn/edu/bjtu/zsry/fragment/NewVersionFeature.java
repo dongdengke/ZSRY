@@ -1,7 +1,6 @@
 package cn.edu.bjtu.zsry.fragment;
 
 import java.util.ArrayList;
-import java.util.concurrent.ScheduledExecutorService;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,11 +28,6 @@ public class NewVersionFeature extends Fragment {
 	private ArrayList<View> views;
 	private int oldPosition = 0;// 记录上一次点的位置
 	private int currentItem; // 当前页面
-	private ScheduledExecutorService scheduledExecutorService;
-	// 图片ID
-	// private int[] viewIds = new int[] { R.drawable.intro_1,
-	// R.drawable.intro_2,
-	// R.drawable.intro_3, R.drawable.intro_5, R.drawable.w01 };
 	private ArrayList<View> dots;
 	private ViewPagerAdapter adapter;
 	private Button startBtn;

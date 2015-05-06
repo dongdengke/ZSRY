@@ -186,22 +186,24 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int mode_walk_on=0x7f02002c;
         public static final int network_error=0x7f02002d;
         public static final int no_work=0x7f02002e;
-        public static final int shadow=0x7f02002f;
-        public static final int start_point=0x7f020030;
-        public static final int tieba_background=0x7f020031;
-        public static final int tieba_bg_list_all=0x7f020032;
-        public static final int tieba_icon_arrow_right=0x7f020033;
-        public static final int tieba_icon_not=0x7f020034;
-        public static final int tieba_login_error=0x7f020035;
-        public static final int w01=0x7f020036;
-        public static final int w_left=0x7f020037;
-        public static final int w_right=0x7f020038;
+        public static final int page=0x7f02002f;
+        public static final int page_now=0x7f020030;
+        public static final int shadow=0x7f020031;
+        public static final int start_point=0x7f020032;
+        public static final int tieba_background=0x7f020033;
+        public static final int tieba_bg_list_all=0x7f020034;
+        public static final int tieba_icon_arrow_right=0x7f020035;
+        public static final int tieba_icon_not=0x7f020036;
+        public static final int tieba_login_error=0x7f020037;
+        public static final int w01=0x7f020038;
+        public static final int w_left=0x7f020039;
+        public static final int w_right=0x7f02003a;
     }
     public static final class id {
-        public static final int action_settings=0x7f05005a;
+        public static final int action_settings=0x7f05005c;
         public static final int arrow=0x7f05004b;
         public static final int bar=0x7f050014;
-        public static final int benke_listview=0x7f050059;
+        public static final int benke_listview=0x7f05005b;
         public static final int benkesheng=0x7f05000f;
         public static final int bmapView=0x7f050032;
         public static final int btn_cancel=0x7f05001a;
@@ -271,6 +273,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int splash_iv_icon=0x7f05000d;
         public static final int splash_tv_content=0x7f05000e;
         public static final int startBtn=0x7f050024;
+        public static final int tv_1=0x7f050058;
+        public static final int tv_2=0x7f050059;
         public static final int tv_accurce=0x7f050045;
         public static final int tv_addess=0x7f050048;
         public static final int tv_benkesheng=0x7f050008;
@@ -288,17 +292,17 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int updated_at=0x7f05004e;
         public static final int viewpager=0x7f05000b;
         public static final int webview=0x7f05003f;
-        public static final int yanjiusheng=0x7f050058;
+        public static final int yanjiusheng=0x7f05005a;
     }
     public static final class layout {
         public static final int about_rjxy=0x7f030000;
         public static final int activity_main=0x7f030001;
         public static final int activity_splash=0x7f030002;
-        public static final int benkesheng_fragment=0x7f030003;
-        public static final int content=0x7f030004;
-        public static final int employee_detail_info=0x7f030005;
-        public static final int employee_info=0x7f030006;
-        public static final int f1=0x7f030007;
+        public static final int beautiful_scenery=0x7f030003;
+        public static final int benkesheng_fragment=0x7f030004;
+        public static final int content=0x7f030005;
+        public static final int employee_detail_info=0x7f030006;
+        public static final int employee_info=0x7f030007;
         public static final int feedback=0x7f030008;
         public static final int international_fragment=0x7f030009;
         public static final int intro_1=0x7f03000a;
@@ -321,7 +325,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int pull_to_refresh=0x7f03001b;
         public static final int setting_fragment=0x7f03001c;
         public static final int slidingmenumain=0x7f03001d;
-        public static final int yanjiusheng_fragment=0x7f03001e;
+        public static final int splash=0x7f03001e;
+        public static final int splash_0=0x7f03001f;
+        public static final int yanjiusheng_fragment=0x7f030020;
     }
     public static final class menu {
         public static final int main=0x7f090000;

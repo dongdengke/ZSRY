@@ -28,7 +28,7 @@ public class BeautifulsceneryFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.f1, null);
+		view = inflater.inflate(R.layout.beautiful_scenery, null);
 		return view;
 	}
 
